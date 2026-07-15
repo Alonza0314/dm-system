@@ -1,4 +1,4 @@
-.PHONY: backend frontend clean
+.PHONY: backend frontend tidy lint run clean
 
 BACKEND_SRC := $(shell find backend -name "*.go")
 FRONTEND_SRC := $(shell find frontend -type f ! -path "frontend/dist/*" ! -path "frontend/node_modules/*")
@@ -9,7 +9,7 @@ all: backend frontend
 build/system: $(BACKEND_SRC)
 	@echo "[+] Building backend..."
 	mkdir -p build
-	cd backend && go build -o ../build/system .
+	cd backend && go build -o ../build/dm .
 	@echo "[✔] Backend build finished"
 
 build/frontend: $(FRONTEND_SRC)
@@ -41,6 +41,19 @@ frontend:
 		fi; \
 	fi; \
 	$(MAKE) build/frontend
+
+tidy:
+	@echo "[+] Tidying backend dependencies..."
+	cd backend && go mod tidy
+	@echo "[✔] Backend dependencies tidied"
+
+lint:
+	@echo "[+] Linting backend..."
+	cd backend && golangci-lint run
+	@echo "[✔] Backend linting finished"
+
+run:
+	./build/dm -c config.yaml
 
 clean:
 	rm -rf build
