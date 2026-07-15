@@ -22,3 +22,11 @@ This is a useful device management for IT.
 | Tidy | `make tidy` |
 | Lint | `make lint` |
 | Test | `make test` |
+
+## API Level
+
+```bash
+/api
+    └─/login(POST)
+    └─/logout(POST)
+```
