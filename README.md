@@ -17,7 +17,7 @@ This is a useful device management for IT.
 | - | - |
 | Make all | `make` |
 | Backend | `make backend` |
-| Frontend | `make frontend |
+| Frontend | `make frontend` |
 | Run | `make run` |
 | Tidy | `make tidy` |
 | Lint | `make lint` |
