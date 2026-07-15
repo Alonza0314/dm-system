@@ -11,18 +11,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
-  color: #ef4444;
-  font-size: 0.875rem;
+  gap: var(--space-sm);
+  color: var(--color-error);
+  font-size: var(--text-body-sm-size);
   text-align: left;
-  padding: 0.75rem 1rem;
-  background: rgba(255, 255, 255, 0.98);
-  border-radius: 8px;
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-canvas);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-hairline);
   min-width: 280px;
   max-width: 400px;
-  backdrop-filter: blur(8px);
   transform: translateX(120%);
   animation: slideIn 0.3s ease-out forwards;
   transition: transform 0.3s ease-out, top 0.3s ease-out;
@@ -35,7 +33,7 @@
 .closeButton {
   background: none;
   border: none;
-  color: #ef4444;
+  color: var(--color-error);
   font-size: 1.25rem;
   line-height: 1;
   padding: 0;

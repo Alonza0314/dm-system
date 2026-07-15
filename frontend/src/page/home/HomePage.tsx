@@ -14,11 +14,11 @@ export default function HomePage() {
     <div className={styles.layout}>
       <aside className={styles.sidebar}>
         <div>
-          <p className={styles.badge}>Framework</p>
+          <p className={styles.badge}>DM System</p>
           <h1 className={styles.brand}>Starter Console</h1>
 
           <nav className={styles.nav}>
-            <a className={styles.navItem} href="#">Home</a>
+            <a className={`${styles.navItem} ${styles.navItemActive}`} href="#">Home</a>
             <a className={styles.navItem} href="#">Module A</a>
             <a className={styles.navItem} href="#">Module B</a>
           </nav>
