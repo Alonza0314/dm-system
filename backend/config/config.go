@@ -15,6 +15,8 @@ type BackendIE struct {
 
 	JWT JWTIE `yaml:"jwt" valid:"required"`
 
+	Db DbIE `yaml:"db" valid:"required"`
+
 	FrontendFilePath string `yaml:"frontendFilePath" valid:"required"`
 }
 
@@ -23,6 +25,12 @@ type JWTIE struct {
 	ExpiresIn time.Duration `yaml:"expiresIn" valid:"required"`
 }
 
+type DbIE struct {
+	Type string `yaml:"type" valid:"required"`
+	Path string `yaml:"path"`
+}
+
 type LoggerIE struct {
-	Level string `yaml:"level" valid:"required"`
+	Level       string `yaml:"level" valid:"required"`
+	WriteToFile string `yaml:"writeToFile" valid:"required"`
 }

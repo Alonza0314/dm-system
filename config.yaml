@@ -8,7 +8,12 @@ backend:
     secret: "dm-system"
     expiresIn: 1h
 
+  db:
+    type: "bbolt"
+    path: "/tmp/dm-system.db"
+
   frontendFilePath: "build/frontend"
 
 logger:
-  level: "info"
+  level: "info" # error/warn/info/debug/trace
+  writeToFile: "false" # true/false

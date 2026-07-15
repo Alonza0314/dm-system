@@ -21,3 +21,4 @@ This is a useful device management for IT.
 | Run | `make run` |
 | Tidy | `make tidy` |
 | Lint | `make lint` |
+| Test | `make test` |

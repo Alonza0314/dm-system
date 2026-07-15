@@ -1,4 +1,4 @@
-.PHONY: backend frontend tidy lint run clean
+.PHONY: backend frontend tidy lint test run clean
 
 BACKEND_SRC := $(shell find backend -name "*.go")
 FRONTEND_SRC := $(shell find frontend -type f ! -path "frontend/dist/*" ! -path "frontend/node_modules/*")
@@ -6,7 +6,7 @@ FRONTEND_STAMP := build/frontend/.stamp
 
 all: backend frontend
 
-build/system: $(BACKEND_SRC)
+build/dm: $(BACKEND_SRC)
 	@echo "[+] Building backend..."
 	mkdir -p build
 	cd backend && go build -o ../build/dm .
@@ -25,13 +25,13 @@ build/frontend: $(FRONTEND_SRC)
 	@touch $(FRONTEND_STAMP)
 
 backend:
-	@if [ -f build/system ]; then \
-		if [ -z "$$(find backend -name '*.go' -newer build/system)" ]; then \
+	@if [ -f build/dm ]; then \
+		if [ -z "$$(find backend -name '*.go' -newer build/dm)" ]; then \
 			echo "[✔] backend is up-to-date, no build needed"; \
 			exit 0; \
 		fi; \
 	fi; \
-	$(MAKE) build/system
+	$(MAKE) build/dm
 
 frontend:
 	@if [ -f $(FRONTEND_STAMP) ]; then \
@@ -51,6 +51,9 @@ lint:
 	@echo "[+] Linting backend..."
 	cd backend && golangci-lint run
 	@echo "[✔] Backend linting finished"
+
+test:
+	cd backend && go test ./... -v
 
 run:
 	./build/dm -c config.yaml

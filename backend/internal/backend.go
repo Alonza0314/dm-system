@@ -2,7 +2,6 @@ package internal
 
 import (
 	"backend/config"
-	"backend/constant"
 	"backend/internal/processor"
 	"backend/logger"
 	"context"
@@ -57,14 +56,26 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 
 		frontendFilePath: config.Backend.FrontendFilePath,
 
-		Processor: *processor.NewProcessor(config.Backend.Username, config.Backend.Password, config.Backend.JWT.Secret, config.Backend.JWT.ExpiresIn, logger),
+		Processor: *processor.NewProcessor(&processor.ProcessorParams{
+			Username: config.Backend.Username,
+			Password: config.Backend.Password,
+
+			JwtSecret:    config.Backend.JWT.Secret,
+			JwtExpiresIn: config.Backend.JWT.ExpiresIn,
+
+			DbType: config.Backend.Db.Type,
+			DbPath: config.Backend.Db.Path,
+
+			BackendLogger: logger,
+		}),
 
 		BackendLogger: logger,
 	}
 
-	b.router = util.NewGinRouter(constant.API_PREFIX, b.iniRoutes())
+	b.router = util.NewGinRouter("", nil)
 	b.router.NoRoute(b.returnPages())
 
+	addServices(b.router, b)
 	addMiddleware(b.router)
 
 	return b
@@ -120,10 +131,27 @@ func (b *backend) Stop() {
 	}
 }
 
-func (b *backend) iniRoutes() util.Routes {
-	routes := make(util.Routes, 0)
+func addServices(router *gin.Engine, b *backend) {
+	router.RedirectTrailingSlash = false
 
-	routes = append(routes, b.getAccountRoutes()...)
+	apiGroup := router.Group("/api")
 
-	return routes
+	addRoutes(apiGroup, b.getAccountRoutes())
+}
+
+func addRoutes(group *gin.RouterGroup, routes util.Routes) {
+	for _, route := range routes {
+		switch route.Method {
+		case "GET":
+			group.GET(route.Pattern, route.HandlerFunc)
+		case "POST":
+			group.POST(route.Pattern, route.HandlerFunc)
+		case "PUT":
+			group.PUT(route.Pattern, route.HandlerFunc)
+		case "DELETE":
+			group.DELETE(route.Pattern, route.HandlerFunc)
+		case "PATCH":
+			group.PATCH(route.Pattern, route.HandlerFunc)
+		}
+	}
 }

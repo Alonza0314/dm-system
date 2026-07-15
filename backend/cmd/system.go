@@ -13,19 +13,19 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var systemCmd = &cobra.Command{
-	Use: "system",
-	Run: systemFunc,
+var dmCmd = &cobra.Command{
+	Use: "dm",
+	Run: dmFunc,
 }
 
 func init() {
-	systemCmd.Flags().StringP("config", "c", "config.yaml", "Path to the configuration file")
-	if err := systemCmd.MarkFlagRequired("config"); err != nil {
+	dmCmd.Flags().StringP("config", "c", "config.yaml", "Path to the configuration file")
+	if err := dmCmd.MarkFlagRequired("config"); err != nil {
 		panic(err)
 	}
 }
 
-func systemFunc(cmd *cobra.Command, args []string) {
+func dmFunc(cmd *cobra.Command, args []string) {
 	systemConfigFilePath, err := cmd.Flags().GetString("config")
 	if err != nil {
 		panic(err)
@@ -36,7 +36,11 @@ func systemFunc(cmd *cobra.Command, args []string) {
 		panic(err)
 	}
 
-	logger := logger.NewBackendLogger(loggergoUtil.LogLevelString(systemConfig.Logger.Level), "", true)
+	if err := systemConfig.Validate(); err != nil {
+		panic(err)
+	}
+
+	logger := logger.NewBackendLogger(loggergoUtil.LogLevelString(systemConfig.Logger.Level), systemConfig.Logger.WriteToFile != "true")
 
 	system := internal.NewBackend(&systemConfig, logger)
 	if system == nil {
@@ -52,7 +56,7 @@ func systemFunc(cmd *cobra.Command, args []string) {
 }
 
 func Execute() {
-	if err := systemCmd.Execute(); err != nil {
+	if err := dmCmd.Execute(); err != nil {
 		panic(err)
 	}
 }

@@ -15,10 +15,12 @@ type BackendLogger struct {
 	AccLog  loggergoModel.LoggerInterface
 	BckLog  loggergoModel.LoggerInterface
 	ProcLog loggergoModel.LoggerInterface
+	CtxLog  loggergoModel.LoggerInterface
+	DbLog   loggergoModel.LoggerInterface
 }
 
-func NewBackendLogger(level loggergoUtil.LogLevelString, filePath string, debugMode bool) *BackendLogger {
-	logger := loggergo.NewLogger(filePath, debugMode)
+func NewBackendLogger(level loggergoUtil.LogLevelString, writeToFile bool) *BackendLogger {
+	logger := loggergo.NewLogger("/tmp/dm-system.log", writeToFile)
 	logger.SetLevel(level)
 
 	return &BackendLogger{
@@ -28,5 +30,7 @@ func NewBackendLogger(level loggergoUtil.LogLevelString, filePath string, debugM
 		AccLog:  logger.WithTags(constant.ACC_LOG),
 		BckLog:  logger.WithTags(constant.BCK_LOG),
 		ProcLog: logger.WithTags(constant.PROC_LOG),
+		CtxLog:  logger.WithTags(constant.CTX_LOG),
+		DbLog:   logger.WithTags(constant.DB_LOG),
 	}
 }
