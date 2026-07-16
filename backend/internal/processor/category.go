@@ -97,7 +97,7 @@ func (p *Processor) CreateCategory(req *model.RequestCreateCategory) (*model.Res
 	if err != nil {
 		return nil, &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
-			Detail:     fmt.Sprint("failed to marshal json: %v", err),
+			Detail:     fmt.Sprintf("failed to marshal json: %v", err),
 		}
 	}
 
