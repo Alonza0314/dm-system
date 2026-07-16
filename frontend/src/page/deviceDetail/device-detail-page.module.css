@@ -1,0 +1,75 @@
+.backLink {
+  font-family: var(--font-text);
+  font-size: var(--text-body-size);
+  color: var(--color-primary);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.loading {
+  color: var(--color-ink-muted-48);
+  font-family: var(--font-text);
+}
+
+.identityCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.identityName {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-display-lg-size);
+  font-weight: var(--text-display-lg-weight);
+  line-height: var(--text-display-lg-line);
+  letter-spacing: var(--text-display-lg-tracking);
+  color: var(--color-ink);
+}
+
+.statusPillLarge {
+  font-size: var(--text-body-size);
+  padding: var(--space-xs) var(--space-lg);
+}
+
+.fieldGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+}
+
+.fieldCard {
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+  background: var(--color-canvas-parchment);
+  padding: var(--space-lg);
+}
+
+.fieldLabel {
+  margin: 0 0 var(--space-xxs);
+  font-family: var(--font-text);
+  font-size: var(--text-caption-strong-size);
+  font-weight: var(--text-caption-strong-weight);
+  letter-spacing: var(--text-caption-strong-tracking);
+  text-transform: uppercase;
+  color: var(--color-ink-muted-48);
+}
+
+.fieldValue {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--text-body-strong-size);
+  font-weight: var(--text-body-strong-weight);
+  color: var(--color-ink);
+  word-break: break-word;
+}

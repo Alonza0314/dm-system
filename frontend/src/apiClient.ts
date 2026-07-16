@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AccountApi, CategoryApi, Configuration } from './api'
+import { AccountApi, CategoryApi, DeviceApi, Configuration } from './api'
 import { getErrorMessage } from './utils/getErrorMessage'
 
 const apiBasePath = import.meta.env.VITE_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8888`
@@ -11,6 +11,7 @@ const configuration = new Configuration({
 
 export const accountApi = new AccountApi(configuration)
 export const categoryApi = new CategoryApi(configuration)
+export const deviceApi = new DeviceApi(configuration)
 
 export const UNAUTHORIZED_MESSAGE_KEY = 'dm-system:unauthorized-message'
 

@@ -35,6 +35,30 @@ export interface CategoryCreateRequest {
 export interface CategoryListResponse {
     'categories'?: Array<Category>;
 }
+export interface Device {
+    'id'?: number;
+    'category'?: string;
+    'name'?: string;
+    'status'?: string;
+    'user'?: string;
+    'owner'?: string;
+    'note'?: string;
+}
+export interface DeviceCreateRequest {
+    'category': string;
+    'name': string;
+    'owner'?: string;
+    'note'?: string;
+}
+export interface DeviceListResponse {
+    'Devices'?: Array<DeviceShort>;
+}
+export interface DeviceShort {
+    'id'?: number;
+    'name'?: string;
+    'status'?: string;
+    'user'?: string;
+}
 export interface LoginRequest {
     'username': string;
     'password': string;
@@ -523,6 +547,342 @@ export class CategoryApi extends BaseAPI {
      */
     public listCategories(options?: RawAxiosRequestConfig) {
         return CategoryApiFp(this.configuration).listCategories(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+
+/**
+ * DeviceApi - axios parameter creator
+ */
+export const DeviceApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Create device
+         * @param {DeviceCreateRequest} deviceCreateRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDevice: async (deviceCreateRequest: DeviceCreateRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'deviceCreateRequest' is not null or undefined
+            assertParamExists('createDevice', 'deviceCreateRequest', deviceCreateRequest)
+            const localVarPath = `/api/device`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deviceCreateRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete device
+         * @param {string} category Category name
+         * @param {string} name Device name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteDevice: async (category: string, name: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'category' is not null or undefined
+            assertParamExists('deleteDevice', 'category', category)
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('deleteDevice', 'name', name)
+            const localVarPath = `/api/device/{category}/{name}`
+                .replace('{category}', encodeURIComponent(String(category)))
+                .replace('{name}', encodeURIComponent(String(name)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Get device
+         * @param {string} category Category name
+         * @param {string} name Device name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDevice: async (category: string, name: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'category' is not null or undefined
+            assertParamExists('getDevice', 'category', category)
+            // verify required parameter 'name' is not null or undefined
+            assertParamExists('getDevice', 'name', name)
+            const localVarPath = `/api/device/{category}/{name}`
+                .replace('{category}', encodeURIComponent(String(category)))
+                .replace('{name}', encodeURIComponent(String(name)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary List devices
+         * @param {string} category Category name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listDevices: async (category: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'category' is not null or undefined
+            assertParamExists('listDevices', 'category', category)
+            const localVarPath = `/api/device/{category}`
+                .replace('{category}', encodeURIComponent(String(category)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication bearerAuth required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+            localVarHeaderParameter['Accept'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * DeviceApi - functional programming interface
+ */
+export const DeviceApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DeviceApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Create device
+         * @param {DeviceCreateRequest} deviceCreateRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDevice(deviceCreateRequest: DeviceCreateRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDevice(deviceCreateRequest, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DeviceApi.createDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Delete device
+         * @param {string} category Category name
+         * @param {string} name Device name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteDevice(category: string, name: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MessageResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteDevice(category, name, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DeviceApi.deleteDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary Get device
+         * @param {string} category Category name
+         * @param {string} name Device name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDevice(category: string, name: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Device>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDevice(category, name, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DeviceApi.getDevice']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
+         * @summary List devices
+         * @param {string} category Category name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listDevices(category: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeviceListResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listDevices(category, options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['DeviceApi.listDevices']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+    }
+};
+
+/**
+ * DeviceApi - factory interface
+ */
+export const DeviceApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DeviceApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Create device
+         * @param {DeviceCreateRequest} deviceCreateRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDevice(deviceCreateRequest: DeviceCreateRequest, options?: RawAxiosRequestConfig): AxiosPromise<MessageResponse> {
+            return localVarFp.createDevice(deviceCreateRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Delete device
+         * @param {string} category Category name
+         * @param {string} name Device name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteDevice(category: string, name: string, options?: RawAxiosRequestConfig): AxiosPromise<MessageResponse> {
+            return localVarFp.deleteDevice(category, name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get device
+         * @param {string} category Category name
+         * @param {string} name Device name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDevice(category: string, name: string, options?: RawAxiosRequestConfig): AxiosPromise<Device> {
+            return localVarFp.getDevice(category, name, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary List devices
+         * @param {string} category Category name
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listDevices(category: string, options?: RawAxiosRequestConfig): AxiosPromise<DeviceListResponse> {
+            return localVarFp.listDevices(category, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * DeviceApi - object-oriented interface
+ */
+export class DeviceApi extends BaseAPI {
+    /**
+     * 
+     * @summary Create device
+     * @param {DeviceCreateRequest} deviceCreateRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public createDevice(deviceCreateRequest: DeviceCreateRequest, options?: RawAxiosRequestConfig) {
+        return DeviceApiFp(this.configuration).createDevice(deviceCreateRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Delete device
+     * @param {string} category Category name
+     * @param {string} name Device name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public deleteDevice(category: string, name: string, options?: RawAxiosRequestConfig) {
+        return DeviceApiFp(this.configuration).deleteDevice(category, name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get device
+     * @param {string} category Category name
+     * @param {string} name Device name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public getDevice(category: string, name: string, options?: RawAxiosRequestConfig) {
+        return DeviceApiFp(this.configuration).getDevice(category, name, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary List devices
+     * @param {string} category Category name
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     */
+    public listDevices(category: string, options?: RawAxiosRequestConfig) {
+        return DeviceApiFp(this.configuration).listDevices(category, options).then((request) => request(this.axios, this.basePath));
     }
 }
 

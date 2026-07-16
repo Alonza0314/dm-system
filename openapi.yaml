@@ -11,6 +11,8 @@ tags:
     description: Authentication
   - name: Category
     description: Device categories
+  - name: Device
+    description: Devices within a category
 paths:
   /api/login:
     post:
@@ -220,6 +222,197 @@ paths:
               schema:
                 $ref: '#/components/schemas/MessageResponse'
 
+  /api/device:
+    post:
+      tags:
+        - Device
+      summary: Create device
+      operationId: createDevice
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+
+  /api/device/{category}:
+    get:
+      tags:
+        - Device
+      summary: List devices
+      operationId: listDevices
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Category name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceListResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+
+  /api/device/{category}/{name}:
+    get:
+      tags:
+        - Device
+      summary: Get device
+      operationId: getDevice
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Category name
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          description: Device name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Device'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+    delete:
+      tags:
+        - Device
+      summary: Delete device
+      operationId: deleteDevice
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Category name
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          description: Device name
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -284,3 +477,67 @@ components:
         name:
           type: string
           example: server
+    DeviceShort:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        name:
+          type: string
+          example: 16plus
+        status:
+          type: string
+          example: idle
+        user:
+          type: string
+          example: ''
+    DeviceListResponse:
+      type: object
+      properties:
+        Devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/DeviceShort'
+    Device:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3
+        category:
+          type: string
+          example: iphone
+        name:
+          type: string
+          example: 16plus
+        status:
+          type: string
+          example: idle
+        user:
+          type: string
+          example: ''
+        owner:
+          type: string
+          example: alonza
+        note:
+          type: string
+          example: good iphone
+    DeviceCreateRequest:
+      type: object
+      required:
+        - category
+        - name
+      properties:
+        category:
+          type: string
+          example: iphone
+        name:
+          type: string
+          example: 16plus
+        owner:
+          type: string
+          example: alonza
+        note:
+          type: string
+          example: good iphone
