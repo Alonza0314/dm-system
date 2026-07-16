@@ -29,11 +29,8 @@ func (b *backend) handleLogin(c *gin.Context) {
 	b.AccLog.Infof("Login attempt from %s", c.ClientIP())
 
 	var req model.RequestLogin
-	if err := c.ShouldBindJSON(&req); err != nil {
-		b.AccLog.Warnf("Invalid login request from %s: %v\n", c.ClientIP(), err)
-		c.JSON(http.StatusBadRequest, model.ResponseLogin{
-			Message: "Invalid request",
-		})
+	if !requestBinding(c, &req) {
+		b.AccLog.Warnf("Invalid login request from %s", c.ClientIP())
 		return
 	}
 
@@ -52,6 +49,5 @@ func (b *backend) handleLogin(c *gin.Context) {
 
 func (b *backend) handleLogout(c *gin.Context) {
 	b.AccLog.Infof("Logout successful from %s", c.ClientIP())
-
 	c.Status(http.StatusNoContent)
 }

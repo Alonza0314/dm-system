@@ -8,5 +8,15 @@ const (
 	PROC_LOG = "PROC"
 	CTX_LOG  = "CTX"
 	DB_LOG   = "DB"
+	CAT_LOG  = "CAT"
 )
 
+// db
+const (
+	COLL_ID       = "ID"
+	COLL_CATEGORY = "category"
+
+	COLL_CATEGORY_TAG = "category-"
+
+	ID_KEY_CATEGORY = "category"
+)
