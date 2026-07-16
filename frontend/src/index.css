@@ -7,8 +7,8 @@
 }
 
 :root {
-  font-family: var(--font-sans);
-  line-height: 1.5;
+  font-family: var(--font-text);
+  line-height: 1.47;
   font-weight: 400;
 
   font-synthesis: none;
@@ -20,6 +20,6 @@
 body {
   margin: 0;
   min-width: 320px;
-  background: var(--color-canvas);
+  background: var(--color-canvas-parchment);
   color: var(--color-ink);
 }

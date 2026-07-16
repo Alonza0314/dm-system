@@ -50,36 +50,38 @@ export default function LoginPage() {
         onClose={removeNotification}
       />
 
-      <div className={styles.heroGlow} aria-hidden="true" />
+      <section className={styles.brandTile}>
+        <p className={styles.brandKicker}>Device Management</p>
+        <h1 className={styles.brandTitle}>DM System</h1>
+        <p className={styles.brandSubtitle}>Sign in to continue to your DM System.</p>
+      </section>
 
-      <main className={styles.card}>
-        <div className={styles.headerBlock}>
-          <p className={styles.kicker}>System Access</p>
-          <h1 className={styles.title}>Welcome back</h1>
-          <p className={styles.subtitle}>Sign in to continue to your control panel.</p>
-        </div>
-
+      <section className={styles.formTile}>
         <form className={styles.form} onSubmit={handleSubmit}>
-          <label className={styles.label} htmlFor="username">Username</label>
-          <input
-            id="username"
-            className={styles.input}
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-            autoComplete="username"
-            required
-          />
+          <div>
+            <label className={styles.label} htmlFor="username">Username</label>
+            <input
+              id="username"
+              className={styles.input}
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+              autoComplete="username"
+              required
+            />
+          </div>
 
-          <label className={styles.label} htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            className={styles.input}
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-            autoComplete="current-password"
-            required
-          />
+          <div>
+            <label className={styles.label} htmlFor="password">Password</label>
+            <input
+              id="password"
+              type="password"
+              className={styles.input}
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              autoComplete="current-password"
+              required
+            />
+          </div>
 
           <div className={styles.actionRow}>
             <Button type="submit" disabled={isLoading}>
@@ -87,7 +89,7 @@ export default function LoginPage() {
             </Button>
           </div>
         </form>
-      </main>
+      </section>
     </div>
   )
 }

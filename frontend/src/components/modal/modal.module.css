@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -14,54 +14,58 @@
 .modal {
   background: var(--color-canvas);
   border: 1px solid var(--color-hairline);
-  padding: var(--space-2xl);
-  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
   width: 100%;
   max-width: 500px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(148, 163, 184, 0.1) inset;
 }
 
 .header {
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-lg);
 }
 
 .title {
-  font-size: var(--text-display-sm-size);
-  font-weight: var(--text-display-sm-weight);
-  line-height: var(--text-display-sm-line);
-  color: var(--color-ink-strong);
+  font-family: var(--font-display);
+  font-size: var(--text-display-md-size);
+  font-weight: var(--text-display-md-weight);
+  line-height: var(--text-display-md-line);
+  letter-spacing: var(--text-display-md-tracking);
+  color: var(--color-ink);
   margin: 0;
 }
 
 .body {
-  margin-bottom: var(--space-xl);
-  color: var(--color-body);
+  margin-bottom: var(--space-lg);
+  font-family: var(--font-text);
+  color: var(--color-ink-muted-80);
 }
 
 .footer {
   display: flex;
   justify-content: flex-end;
-  gap: var(--space-lg);
+  gap: var(--space-sm);
 }
 
 .formGroup {
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-sm);
 }
 
 .label {
   display: block;
-  margin-bottom: var(--space-sm);
-  font-weight: 500;
+  margin-bottom: var(--space-xxs);
+  font-family: var(--font-text);
+  font-weight: var(--text-body-strong-weight);
   color: var(--color-ink);
 }
 
 .input {
   width: 90%;
-  padding: var(--space-md);
-  border: 1px solid var(--color-hairline);
-  border-radius: var(--radius-sm);
-  font-size: var(--text-body-sm-size);
-  background: var(--color-canvas-soft);
+  padding: var(--space-xs) var(--space-sm);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-md);
+  font-family: var(--font-text);
+  font-size: var(--text-body-size);
+  background: var(--color-canvas);
   color: var(--color-ink);
 }
 

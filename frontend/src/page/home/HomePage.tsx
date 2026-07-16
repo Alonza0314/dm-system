@@ -15,8 +15,9 @@ export default function HomePage() {
       <aside className={styles.sidebar}>
         <div>
           <p className={styles.badge}>DM System</p>
-          <h1 className={styles.brand}>Starter Console</h1>
+          <h1 className={styles.brand}>Console</h1>
 
+          <p className={styles.navLabel}>Menu</p>
           <nav className={styles.nav}>
             <a className={`${styles.navItem} ${styles.navItemActive}`} href="#">Home</a>
             <a className={styles.navItem} href="#">Module A</a>
@@ -30,20 +31,32 @@ export default function HomePage() {
       </aside>
 
       <main className={styles.content}>
-        <header className={styles.header}>
-          <h2>Home</h2>
-          <p>A clean framework canvas ready for your features.</p>
-        </header>
+        <section className={styles.heroTile}>
+          <p className={styles.eyebrow}>Console</p>
+          <h2 className={styles.heroTitle}>Home</h2>
+          <p className={styles.heroSubtitle}>A clean framework canvas ready for your features.</p>
+        </section>
 
-        <section className={styles.cardGrid}>
-          <article className={styles.card}>
-            <h3>Widget Area</h3>
-            <p>Place dashboard cards, tables, or charts here.</p>
-          </article>
-          <article className={styles.card}>
-            <h3>Feature Area</h3>
-            <p>Use this section as a starting point for module pages.</p>
-          </article>
+        <section className={styles.tile}>
+          <div className={styles.tileInner}>
+            <div className={styles.tileText}>
+              <p className={styles.tileTag}>Widget Area</p>
+              <h3>Place dashboard cards</h3>
+              <p>Drop in tables, charts, or summary cards here as the first module goes in.</p>
+            </div>
+            <div className={styles.tileGraphic} aria-hidden="true" />
+          </div>
+        </section>
+
+        <section className={`${styles.tile} ${styles.tileParchment}`}>
+          <div className={styles.tileInner}>
+            <div className={styles.tileText}>
+              <p className={styles.tileTag}>Feature Area</p>
+              <h3>Start your first module</h3>
+              <p>Use this section as a starting point for the next module page.</p>
+            </div>
+            <div className={styles.tileGraphic} aria-hidden="true" />
+          </div>
         </section>
       </main>
     </div>
