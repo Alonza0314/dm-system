@@ -60,9 +60,9 @@
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   text-decoration: none;
   font-family: var(--font-text);
-  font-size: var(--text-caption-size);
+  font-size: var(--text-body-size);
   font-weight: var(--text-caption-weight);
-  letter-spacing: var(--text-caption-tracking);
+  letter-spacing: var(--text-body-tracking);
   color: var(--color-body-muted);
   transition: background-color 120ms ease, color 120ms ease;
 }
@@ -95,57 +95,9 @@
   flex-direction: column;
 }
 
-.heroTile {
-  background: var(--color-canvas);
-  padding: var(--space-xxl) var(--space-xl) var(--space-xl);
-}
-
-.eyebrow {
-  margin: 0 0 var(--space-xs);
-  font-family: var(--font-text);
-  font-size: var(--text-caption-strong-size);
-  font-weight: var(--text-caption-strong-weight);
-  letter-spacing: var(--text-caption-strong-tracking);
-  text-transform: uppercase;
-  color: var(--color-primary);
-}
-
-.heroTitle {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--text-hero-display-size);
-  font-weight: var(--text-hero-display-weight);
-  line-height: var(--text-hero-display-line);
-  letter-spacing: var(--text-hero-display-tracking);
-  color: var(--color-ink);
-}
-
-.heroSubtitle {
-  margin: var(--space-sm) 0 0;
-  max-width: 46ch;
-  font-family: var(--font-text);
-  font-size: var(--text-lead-airy-size);
-  font-weight: var(--text-lead-airy-weight);
-  line-height: var(--text-lead-airy-line);
-  color: var(--color-ink-muted-80);
-}
-
 .tile {
   background: var(--color-canvas);
   padding: var(--space-xxl) var(--space-xl);
-  border-top: 1px solid var(--color-hairline);
-}
-
-.tileParchment {
-  background: var(--color-canvas-parchment);
-}
-
-.tileInner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: var(--space-xl);
-  max-width: 900px;
 }
 
 .tileTag {
@@ -158,7 +110,7 @@
   text-transform: uppercase;
 }
 
-.tileText h3 {
+.tile h3 {
   margin: 0;
   font-family: var(--font-display);
   font-size: var(--text-display-md-size);
@@ -168,7 +120,7 @@
   color: var(--color-ink);
 }
 
-.tileText p {
+.tileDescription {
   margin: var(--space-sm) 0 0;
   font-family: var(--font-text);
   font-size: var(--text-body-size);
@@ -177,21 +129,70 @@
   color: var(--color-ink-muted-80);
 }
 
-.tileGraphic {
-  aspect-ratio: 4 / 3;
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-pearl);
-  border: 1px solid var(--color-hairline);
+.tileHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
-@media (max-width: 900px) {
-  .tileInner {
-    grid-template-columns: 1fr;
-  }
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-lg);
+}
 
-  .tileGraphic {
-    order: -1;
-  }
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-text);
+  font-size: var(--text-caption-strong-size);
+  font-weight: var(--text-caption-strong-weight);
+  letter-spacing: var(--text-caption-strong-tracking);
+  text-transform: uppercase;
+  color: var(--color-ink-muted-48);
+  background: var(--color-canvas-parchment);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.table td {
+  padding: var(--space-sm) var(--space-lg);
+  font-family: var(--font-text);
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+  border-bottom: 1px solid var(--color-hairline);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.tableActions {
+  text-align: right;
+}
+
+.tableActions button {
+  padding: var(--space-xxs) var(--space-sm);
+  font-size: var(--text-caption-size);
+}
+
+.tableEmpty {
+  text-align: center;
+  color: var(--color-ink-muted-48);
+  padding: var(--space-xl);
+}
+
+.tableError {
+  margin: 0 0 var(--space-lg);
+  color: var(--color-error);
+  font-family: var(--font-text);
+  font-size: var(--text-caption-size);
 }
 
 @media (max-width: 767px) {
@@ -217,7 +218,6 @@
     border-top: 0;
   }
 
-  .heroTile,
   .tile {
     padding: var(--space-xl) var(--space-lg);
   }

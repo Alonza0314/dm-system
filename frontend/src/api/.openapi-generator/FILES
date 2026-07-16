@@ -1,11 +1,14 @@
 .gitignore
 .npmignore
-.openapi-generator-ignore
 api.ts
 base.ts
 common.ts
 configuration.ts
-docs/DefaultApi.md
+docs/AccountApi.md
+docs/Category.md
+docs/CategoryApi.md
+docs/CategoryCreateRequest.md
+docs/CategoryListResponse.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MessageResponse.md

@@ -1,6 +1,11 @@
 package context
 
-import "backend/logger"
+import (
+	"backend/constant"
+	"backend/logger"
+	"fmt"
+	"strconv"
+)
 
 type DmContextParams struct {
 	DbType string
@@ -44,4 +49,40 @@ func (ctx *DmContext) Release() {
 
 func (ctx *DmContext) Db() *dbContext {
 	return ctx.dbContext
+}
+
+func (ctx *DmContext) RequestId(target string) (int, error) {
+	ctx.BackendLogger.CtxLog.Debugf("Requesting new ID for target: %s", target)
+
+	exist, err := ctx.dbContext.Exist(constant.COLL_ID, target)
+	if err != nil {
+		return -1, fmt.Errorf("failed to check if target id exists: %w", err)
+	}
+
+	if exist {
+		id, err := ctx.dbContext.Load(constant.COLL_ID, target)
+		if err != nil {
+			return -1, fmt.Errorf("failed to get %s's id", target)
+		}
+
+		numId, err := strconv.Atoi(id)
+		if err != nil {
+			return -1, fmt.Errorf("failed to convert %s's id number", target)
+		}
+
+		numId += 1
+		if err := ctx.dbContext.Save(constant.COLL_ID, target, strconv.Itoa(numId)); err != nil {
+			return -1, fmt.Errorf("failed to update %s's id", target)
+		}
+
+		return numId, nil
+	} else {
+		numId := 1
+
+		if err := ctx.dbContext.Save(constant.COLL_ID, target, strconv.Itoa(numId)); err != nil {
+			return -1, fmt.Errorf("failed to update %s's id", target)
+		}
+
+		return numId, nil
+	}
 }

@@ -1,13 +1,11 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import Button from '../../components/button/button'
 import NotificationContainer from '../../components/notifications/NotificationContainer'
 import { useNotifications } from '../../hooks/useNotifications'
-import { Configuration, DefaultApi } from '../../api'
+import { accountApi, UNAUTHORIZED_MESSAGE_KEY } from '../../apiClient'
+import { getErrorMessage } from '../../utils/getErrorMessage'
 import { useNavigate } from 'react-router-dom'
 import styles from './login-page.module.css'
-
-const apiBasePath = import.meta.env.VITE_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8888`
-const api = new DefaultApi(new Configuration({ basePath: apiBasePath }))
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -17,26 +15,26 @@ export default function LoginPage() {
 
   const { errors, successes, addError, addSuccess, removeNotification } = useNotifications()
 
+  useEffect(() => {
+    const pendingMessage = sessionStorage.getItem(UNAUTHORIZED_MESSAGE_KEY)
+    if (pendingMessage) {
+      sessionStorage.removeItem(UNAUTHORIZED_MESSAGE_KEY)
+      addError(pendingMessage)
+    }
+  }, [addError])
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setIsLoading(true)
 
     try {
-      const response = await api.login({ username, password })
+      const response = await accountApi.login({ username, password })
       const token = response.data.token || ''
       localStorage.setItem('token', token)
       addSuccess(response.data.message || 'Login successful')
       navigate('/', { replace: true })
     } catch (error: unknown) {
-      const message =
-        typeof error === 'object' &&
-        error !== null &&
-        'response' in error &&
-        typeof (error as { response?: { data?: { message?: string } } }).response?.data?.message === 'string'
-          ? (error as { response?: { data?: { message?: string } } }).response?.data?.message || 'Login failed'
-          : 'Login failed'
-
-      addError(message)
+      addError(getErrorMessage(error, 'Login failed'))
     } finally {
       setIsLoading(false)
     }

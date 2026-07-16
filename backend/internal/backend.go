@@ -136,7 +136,11 @@ func addServices(router *gin.Engine, b *backend) {
 
 	apiGroup := router.Group("/api")
 
+	authGroup := apiGroup.Group("")
+	authGroup.Use(addAuthMiddleware(b))
+
 	addRoutes(apiGroup, b.getAccountRoutes())
+	addRoutes(authGroup, b.getCategoryRoutes())
 }
 
 func addRoutes(group *gin.RouterGroup, routes util.Routes) {
