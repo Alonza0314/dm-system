@@ -2,7 +2,7 @@ package model
 
 type Category struct {
 	Id          int    `json:"id"`
-	Name        string `json:"name" bind:"required"`
+	Name        string `json:"name" binding:"required"`
 	IdleDevice  int    `json:"idle_device"`
 	UsingDevice int    `json:"using_device"`
 }

@@ -43,9 +43,7 @@ func (b *backend) handleGetCategories(c *gin.Context) {
 	response, errDetail := b.Processor.GetCategories()
 	if errDetail != nil {
 		errDetailLog(errDetail, b.CatLog, "Get categories failed for %s: %s", c.ClientIP(), errDetail.Detail)
-		c.JSON(errDetail.HttpStatus, model.ResponseCreateCategory{
-			Message: errDetail.Detail,
-		})
+		c.JSON(errDetail.HttpStatus, errDetail)
 		return
 	}
 
@@ -59,9 +57,7 @@ func (b *backend) handleGetCategory(c *gin.Context) {
 	response, errDetail := b.Processor.GetCategory(c.Param("cate"))
 	if errDetail != nil {
 		errDetailLog(errDetail, b.CatLog, "Get category %s failed for %s: %s", c.Param("cat"), c.ClientIP(), errDetail.Detail)
-		c.JSON(errDetail.HttpStatus, model.ResponseCreateCategory{
-			Message: errDetail.Detail,
-		})
+		c.JSON(errDetail.HttpStatus, errDetail)
 		return
 	}
 
@@ -81,9 +77,7 @@ func (b *backend) handleCreateCategory(c *gin.Context) {
 	response, errDetail := b.Processor.CreateCategory(&req)
 	if errDetail != nil {
 		errDetailLog(errDetail, b.CatLog, "Create category failed for %s: %s", c.ClientIP(), errDetail.Detail)
-		c.JSON(errDetail.HttpStatus, model.ResponseCreateCategory{
-			Message: errDetail.Detail,
-		})
+		c.JSON(errDetail.HttpStatus, errDetail)
 		return
 	}
 
@@ -97,9 +91,7 @@ func (b *backend) handleDeleteCategory(c *gin.Context) {
 	response, errDetail := b.Processor.DeleteCategory(c.Param("cate"))
 	if errDetail != nil {
 		errDetailLog(errDetail, b.CatLog, "Delete category %s failed for %s: %s", c.Param("cat"), c.ClientIP(), errDetail.Detail)
-		c.JSON(errDetail.HttpStatus, model.ResponseCreateCategory{
-			Message: errDetail.Detail,
-		})
+		c.JSON(errDetail.HttpStatus, errDetail)
 		return
 	}
 
