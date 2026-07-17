@@ -18,7 +18,7 @@ function Sidebar({ onLogout }: { onLogout: () => void }) {
     <aside className={styles.sidebar}>
       <div>
         <p className={styles.badge}>DM System</p>
-        <h1 className={styles.brand}>Dashboard</h1>
+        <h1 className={styles.brand}>Console</h1>
 
         <p className={styles.navLabel}>Menu</p>
         <nav className={styles.nav}>
