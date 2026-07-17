@@ -1,5 +1,7 @@
 # Device Management System
 
+![dm-system](./dm-system.png)
+
 This is a useful device management for IT.
 
 ## Develop Environment
