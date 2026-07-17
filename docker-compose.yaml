@@ -1,0 +1,12 @@
+services:
+  dm-system:
+    container_name: dm
+    image: alonza0314/dm-system:latest
+    command: ./dm -c config.yaml
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./docker/config.yaml:/dm/config.yaml
+      - /var/lib/dm:/dm/db
