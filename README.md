@@ -33,10 +33,11 @@ This is a useful device management for IT.
     └─/login(POST)
     └─/logout(POST)
     └─/category(GET, POST)
-    │   └─/:cate(GET, Delete)
+    │   └─/:cate(GET, DELETE)
     └─/device(POST)
-        └─/:cate(GET)
-        └─/:cate/:dev(GET, Delete)
+    │   └─/:cate(GET)
+    │   └─/:cate/:dev(GET, DELETE)
+    └─/qrcode/:cate/:dev(POST, DELETE)
 ```
 
 ## Install - Docker Compose
