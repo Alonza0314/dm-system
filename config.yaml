@@ -2,7 +2,7 @@ backend:
   username: "admin"
   password: "0000"
 
-  port: 8888
+  port: 8889
 
   jwt:
     secret: "dm-system"

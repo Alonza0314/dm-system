@@ -2,7 +2,7 @@ import axios from 'axios'
 import { AccountApi, CategoryApi, DeviceApi, QrcodeApi, Configuration } from './api'
 import { getErrorMessage } from './utils/getErrorMessage'
 
-const apiBasePath = import.meta.env.VITE_API_BASE_URL || `${window.location.protocol}//${window.location.hostname}:8888`
+const apiBasePath = import.meta.env.VITE_API_BASE_URL || window.location.origin
 
 const configuration = new Configuration({
   basePath: apiBasePath,
