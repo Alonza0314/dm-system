@@ -14,8 +14,10 @@ docs/DeviceApi.md
 docs/DeviceCreateRequest.md
 docs/DeviceListResponse.md
 docs/DeviceShort.md
+docs/DeviceUserRequest.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MessageResponse.md
+docs/QrcodeApi.md
 git_push.sh
 index.ts

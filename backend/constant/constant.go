@@ -10,6 +10,7 @@ const (
 	DB_LOG   = "DB"
 	CAT_LOG  = "CAT"
 	DEV_LOG  = "DEV"
+	QRD_LOG  = "QRD"
 )
 
 // db

@@ -44,8 +44,8 @@ export default function CategoryDevicesPage() {
 
   const [qrModal, setQrModal] = useState<QrModalState | null>(null)
 
-  const fetchDevices = useCallback(async () => {
-    setIsLoading(true)
+  const fetchDevices = useCallback(async (silent = false) => {
+    if (!silent) setIsLoading(true)
     try {
       const response = await deviceApi.listDevices(categoryName)
       setDevices(response.data.Devices ?? [])
@@ -53,12 +53,14 @@ export default function CategoryDevicesPage() {
     } catch (err) {
       setError(getErrorMessage(err, 'Failed to load devices'))
     } finally {
-      setIsLoading(false)
+      if (!silent) setIsLoading(false)
     }
   }, [categoryName])
 
   useEffect(() => {
     fetchDevices()
+    const interval = setInterval(() => fetchDevices(true), 10_000)
+    return () => clearInterval(interval)
   }, [fetchDevices])
 
   function openCreate() {

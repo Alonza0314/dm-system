@@ -13,6 +13,8 @@ tags:
     description: Device categories
   - name: Device
     description: Devices within a category
+  - name: Qrcode
+    description: Public device borrow/return actions, accessed via QR code (no auth)
 paths:
   /api/login:
     post:
@@ -413,6 +415,98 @@ paths:
               schema:
                 $ref: '#/components/schemas/MessageResponse'
 
+  /api/qrcode/{category}/{name}:
+    post:
+      tags:
+        - Qrcode
+      summary: Borrow device
+      operationId: borrowDevice
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Category name
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          description: Device name
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceUserRequest'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+    delete:
+      tags:
+        - Qrcode
+      summary: Return device
+      operationId: returnDevice
+      parameters:
+        - name: category
+          in: path
+          required: true
+          description: Category name
+          schema:
+            type: string
+        - name: name
+          in: path
+          required: true
+          description: Device name
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceUserRequest'
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageResponse'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -541,3 +635,11 @@ components:
         note:
           type: string
           example: good iphone
+    DeviceUserRequest:
+      type: object
+      required:
+        - user
+      properties:
+        user:
+          type: string
+          example: alonza

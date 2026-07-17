@@ -2482,6 +2482,535 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Qrcode",
+      "item": [
+        {
+          "name": "Borrow",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user\": \"alonza\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+              "host": [
+                "{{SHEMA}}{{BACKEND_URL}}"
+              ],
+              "path": [
+                "api",
+                "qrcode",
+                "iphone",
+                "16plus"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:24:00 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "409",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:24:22 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "52"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"device 16plus is still using by alonza\"\n}"
+            },
+            {
+              "name": "404",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plu",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plu"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:24:43 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "36"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"device 16plu not found\"\n}"
+            },
+            {
+              "name": "500",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:26:33 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "65"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"failed to check if category exists: <nil>\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Return",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user\": \"alonza\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+              "host": [
+                "{{SHEMA}}{{BACKEND_URL}}"
+              ],
+              "path": [
+                "api",
+                "qrcode",
+                "iphone",
+                "16plus"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:25:28 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "0"
+                }
+              ],
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "409",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:25:39 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "35"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"device 16plus is idle\"\n}"
+            },
+            {
+              "name": "404",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plu",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plu"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:26:00 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "36"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"device 16plu not found\"\n}"
+            },
+            {
+              "name": "500",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"user\": \"alonza\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/qrcode/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "qrcode",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Fri, 17 Jul 2026 03:26:26 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "65"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"failed to check if category exists: <nil>\"\n}"
+            }
+          ]
+        }
+      ]
     }
   ],
   "event": [

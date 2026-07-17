@@ -20,6 +20,7 @@
   --color-on-dark: #ffffff;
 
   --color-error: #d70015;
+  --color-error-bg: rgba(215, 0, 21, 0.08);
   --color-success: var(--color-primary);
 
   --color-status-idle: #1a7f37;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import type { Device } from '../../api'
 import { deviceApi } from '../../apiClient'
@@ -21,28 +21,26 @@ export default function DeviceDetailPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    let cancelled = false
-    setIsLoading(true)
-
-    deviceApi.getDevice(categoryName, deviceName)
+  const fetchDevice = useCallback((silent = false) => {
+    if (!silent) setIsLoading(true)
+    return deviceApi.getDevice(categoryName, deviceName)
       .then((response) => {
-        if (!cancelled) {
-          setDevice(response.data)
-          setError(null)
-        }
+        setDevice(response.data)
+        setError(null)
       })
       .catch((err) => {
-        if (!cancelled) setError(getErrorMessage(err, 'Failed to load device'))
+        setError(getErrorMessage(err, 'Failed to load device'))
       })
       .finally(() => {
-        if (!cancelled) setIsLoading(false)
+        if (!silent) setIsLoading(false)
       })
-
-    return () => {
-      cancelled = true
-    }
   }, [categoryName, deviceName])
+
+  useEffect(() => {
+    fetchDevice()
+    const interval = setInterval(() => fetchDevice(true), 10_000)
+    return () => clearInterval(interval)
+  }, [fetchDevice])
 
   return (
     <section className={panelStyles.tile}>
