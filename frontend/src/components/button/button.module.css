@@ -11,6 +11,7 @@
   align-items: center;
   gap: var(--space-xs);
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 .button:active:not(:disabled) {
@@ -36,4 +37,10 @@
   background: transparent;
   color: var(--color-primary);
   border-color: var(--color-primary);
+}
+
+.utility {
+  background: var(--color-ink);
+  color: var(--color-on-dark);
+  border-color: var(--color-ink);
 }

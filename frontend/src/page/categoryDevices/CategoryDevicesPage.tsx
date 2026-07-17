@@ -7,6 +7,7 @@ import { useNotifications } from '../../hooks/useNotifications'
 import { useCategoryContext } from '../../context/CategoryContext'
 import { deviceApi } from '../../apiClient'
 import { getErrorMessage } from '../../utils/getErrorMessage'
+import { downloadDataUrl, generateQrCodeDataUrl } from '../../utils/qrCode'
 import type { DeviceShort } from '../../api'
 import styles from '../../styles/dashboard-panel.module.css'
 import modalStyles from '../../components/modal/modal.module.css'
@@ -16,6 +17,12 @@ interface DeviceForm {
   name: string
   owner: string
   note: string
+}
+
+interface QrModalState {
+  deviceName: string
+  url: string
+  dataUrl: string
 }
 
 export default function CategoryDevicesPage() {
@@ -34,6 +41,8 @@ export default function CategoryDevicesPage() {
 
   const [confirmTarget, setConfirmTarget] = useState<string | null>(null)
   const [pendingDelete, setPendingDelete] = useState<string | null>(null)
+
+  const [qrModal, setQrModal] = useState<QrModalState | null>(null)
 
   const fetchDevices = useCallback(async () => {
     setIsLoading(true)
@@ -102,6 +111,21 @@ export default function CategoryDevicesPage() {
     navigate(`/category/${encodeURIComponent(categoryName)}/device/${encodeURIComponent(deviceName)}`)
   }
 
+  async function handleShowQr(deviceName: string) {
+    const url = `${window.location.origin}/qrcode/${encodeURIComponent(categoryName)}/${encodeURIComponent(deviceName)}`
+    try {
+      const dataUrl = await generateQrCodeDataUrl(url)
+      setQrModal({ deviceName, url, dataUrl })
+    } catch (err) {
+      addError(getErrorMessage(err, 'Failed to generate QR code'))
+    }
+  }
+
+  function handleDownloadQr() {
+    if (!qrModal) return
+    downloadDataUrl(qrModal.dataUrl, `${categoryName}-${qrModal.deviceName}-qrcode.png`)
+  }
+
   return (
     <section className={styles.tile}>
       <NotificationContainer errors={errors} successes={successes} onClose={removeNotification} />
@@ -142,6 +166,13 @@ export default function CategoryDevicesPage() {
                 </td>
                 <td>{device.user || '—'}</td>
                 <td className={styles.tableActions}>
+                  <Button
+                    variant="utility"
+                    className={styles.qrButtonSpacing}
+                    onClick={() => handleShowQr(device.name ?? '')}
+                  >
+                    QR Code
+                  </Button>
                   <Button variant="secondary" onClick={() => goToDetail(device.name ?? '')}>
                     Detail
                   </Button>
@@ -188,7 +219,9 @@ export default function CategoryDevicesPage() {
         </div>
 
         <div className={modalStyles.formGroup}>
-          <label className={modalStyles.label} htmlFor="device-name">Name</label>
+          <label className={modalStyles.label} htmlFor="device-name">
+            Name <span className={modalStyles.requiredMark}>*</span>
+          </label>
           <input
             id="device-name"
             className={modalStyles.input}
@@ -200,7 +233,9 @@ export default function CategoryDevicesPage() {
         </div>
 
         <div className={modalStyles.formGroup}>
-          <label className={modalStyles.label} htmlFor="device-owner">Owner</label>
+          <label className={modalStyles.label} htmlFor="device-owner">
+            Owner <span className={modalStyles.optionalHint}>(optional)</span>
+          </label>
           <input
             id="device-owner"
             className={modalStyles.input}
@@ -211,7 +246,9 @@ export default function CategoryDevicesPage() {
         </div>
 
         <div className={modalStyles.formGroup}>
-          <label className={modalStyles.label} htmlFor="device-note">Note</label>
+          <label className={modalStyles.label} htmlFor="device-note">
+            Note <span className={modalStyles.optionalHint}>(optional)</span>
+          </label>
           <input
             id="device-note"
             className={modalStyles.input}
@@ -233,6 +270,27 @@ export default function CategoryDevicesPage() {
         <p>
           Are you sure you want to delete device "{confirmTarget}"? This action cannot be undone.
         </p>
+      </Modal>
+
+      <Modal
+        isOpen={qrModal !== null}
+        onClose={() => setQrModal(null)}
+        title="Device QR Code"
+        onSubmit={handleDownloadQr}
+        submitLabel="Download"
+      >
+        {qrModal && (
+          <div className={styles.qrPreview}>
+            <img
+              src={qrModal.dataUrl}
+              alt={`QR code for ${qrModal.deviceName}`}
+              className={styles.qrImage}
+            />
+            <a href={qrModal.url} target="_blank" rel="noopener noreferrer" className={styles.qrLink}>
+              {qrModal.url}
+            </a>
+          </div>
+        )}
       </Modal>
     </section>
   )

@@ -58,6 +58,15 @@
   color: var(--color-ink);
 }
 
+.requiredMark {
+  color: var(--color-error);
+}
+
+.optionalHint {
+  font-weight: var(--text-body-weight);
+  color: var(--color-ink-muted-48);
+}
+
 .input {
   width: 90%;
   padding: var(--space-xs) var(--space-sm);
