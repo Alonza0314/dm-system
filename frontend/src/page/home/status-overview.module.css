@@ -1,0 +1,147 @@
+.chartRow {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  flex-wrap: wrap;
+}
+
+.donut {
+  width: 280px;
+  height: 280px;
+  flex-shrink: 0;
+}
+
+.arc {
+  cursor: pointer;
+  transition: stroke-width 160ms ease, opacity 160ms ease;
+}
+
+.arcDimmed {
+  opacity: 0.35;
+}
+
+.totalValue {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: var(--text-display-md-weight);
+  fill: var(--color-ink);
+}
+
+.totalLabel {
+  font-family: var(--font-text);
+  font-size: var(--text-fine-print-size);
+  fill: var(--color-ink-muted-48);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.legend {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.legendRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color 140ms ease;
+}
+
+.legendRowActiveIdle {
+  background: var(--color-status-idle-bg);
+}
+
+.legendRowActiveUsing {
+  background: var(--color-status-using-bg);
+}
+
+.swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.swatchIdle {
+  background: var(--color-status-idle);
+}
+
+.swatchUsing {
+  background: var(--color-status-using);
+}
+
+.legendLabel {
+  font-family: var(--font-text);
+  font-size: var(--text-body-size);
+  color: var(--color-ink);
+  min-width: 60px;
+}
+
+.legendValue {
+  font-family: var(--font-display);
+  font-size: var(--text-body-strong-size);
+  font-weight: var(--text-body-strong-weight);
+  color: var(--color-ink);
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 10;
+  min-width: 160px;
+  max-width: 220px;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  padding: var(--space-sm) var(--space-md);
+  pointer-events: none;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  animation: tooltipIn 120ms ease-out;
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.tooltipTitle {
+  margin: 0 0 var(--space-xs);
+  font-family: var(--font-text);
+  font-size: var(--text-caption-strong-size);
+  font-weight: var(--text-caption-strong-weight);
+  color: var(--color-ink-muted-48);
+  text-transform: uppercase;
+}
+
+.tooltipList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-xxs);
+}
+
+.tooltipRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-md);
+  font-family: var(--font-text);
+  font-size: var(--text-caption-size);
+  color: var(--color-ink);
+}
+
+.tooltipEmpty {
+  margin: 0;
+  font-family: var(--font-text);
+  font-size: var(--text-caption-size);
+  color: var(--color-ink-muted-48);
+}
