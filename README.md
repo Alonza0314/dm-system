@@ -60,8 +60,6 @@ This is a useful device management for IT.
 
     For other setting, please make sure the modification is match the setting at [docker-compose.yaml](docker-compose.yaml).
 
-    The default login credential is
-
 3. Up the compose
 
     ```bash
