@@ -1,7 +1,7 @@
 services:
   dm-system:
     container_name: dm
-    image: alonza0314/dm-system:v0.0.2
+    image: alonza0314/dm-system:v0.0.3
     command: ./dm -c config.yaml
     expose:
       - "8888"
