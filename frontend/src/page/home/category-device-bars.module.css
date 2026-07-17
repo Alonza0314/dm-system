@@ -1,0 +1,61 @@
+.wrapper {
+  flex: 1;
+  min-width: 240px;
+}
+
+.heading {
+  margin: 0 0 var(--space-sm);
+  font-family: var(--font-text);
+  font-size: var(--text-caption-strong-size);
+  font-weight: var(--text-caption-strong-weight);
+  letter-spacing: var(--text-caption-strong-tracking);
+  text-transform: uppercase;
+  color: var(--color-ink-muted-48);
+}
+
+.barList {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.barRow {
+  display: grid;
+  grid-template-columns: 100px 1fr 32px;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.barLabel {
+  font-family: var(--font-text);
+  font-size: var(--text-caption-size);
+  color: var(--color-ink);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barTrack {
+  display: flex;
+  height: 14px;
+  background: var(--color-canvas-parchment);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.barSegmentIdle {
+  background: var(--color-status-idle);
+  height: 100%;
+}
+
+.barSegmentUsing {
+  background: var(--color-status-using);
+  height: 100%;
+}
+
+.barValue {
+  font-family: var(--font-display);
+  font-size: var(--text-caption-strong-size);
+  font-weight: var(--text-body-strong-weight);
+  color: var(--color-ink);
+  text-align: right;
+}
