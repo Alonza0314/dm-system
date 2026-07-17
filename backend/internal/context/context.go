@@ -40,11 +40,11 @@ func NewDmContext(params *DmContextParams) *DmContext {
 }
 
 func (ctx *DmContext) Release() {
-	ctx.BackendLogger.CtxLog.Infoln("Release DmContext...")
+	ctx.CtxLog.Infoln("Release DmContext...")
 
 	ctx.dbContext.release()
 
-	ctx.BackendLogger.CtxLog.Infoln("DmContext released")
+	ctx.CtxLog.Infoln("DmContext released")
 }
 
 func (ctx *DmContext) Db() *dbContext {
@@ -52,7 +52,7 @@ func (ctx *DmContext) Db() *dbContext {
 }
 
 func (ctx *DmContext) RequestId(target string) (int, error) {
-	ctx.BackendLogger.CtxLog.Debugf("Requesting new ID for target: %s", target)
+	ctx.CtxLog.Debugf("Requesting new ID for target: %s", target)
 
 	exist, err := ctx.dbContext.Exist(constant.COLL_ID, target)
 	if err != nil {

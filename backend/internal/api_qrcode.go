@@ -14,23 +14,20 @@ func (b *backend) getQrcodeRoutes() util.Routes {
 			Name:        "Borrow",
 			Method:      http.MethodPost,
 			Pattern:     "/qrcode/:cate/:dev",
-			HandlerFunc: b.handleBorrow,
+			HandlerFunc: withLogging("Borrow", b.QrdLog, b.handleBorrow),
 		},
 		{
 			Name:        "Return",
 			Method:      http.MethodDelete,
 			Pattern:     "/qrcode/:cate/:dev",
-			HandlerFunc: b.handleReturn,
+			HandlerFunc: withLogging("Return", b.QrdLog, b.handleReturn),
 		},
 	}
 }
 
 func (b *backend) handleBorrow(c *gin.Context) {
-	b.QrdLog.Infof("Borrow %s %s fromo %s", c.Param("cate"), c.Param("dev"), c.ClientIP())
-
 	var req model.RequestQrcodeBorrow
 	if !requestBinding(c, &req) {
-		b.QrdLog.Warnf("Invalid qrcode borrow request from %s", c.ClientIP())
 		return
 	}
 
@@ -40,16 +37,12 @@ func (b *backend) handleBorrow(c *gin.Context) {
 		return
 	}
 
-	b.QrdLog.Infof("Borrow %s %s successful from %s", c.Param("cate"), c.Param("dev"), c.ClientIP())
 	c.Status(http.StatusOK)
 }
 
 func (b *backend) handleReturn(c *gin.Context) {
-	b.QrdLog.Infof("Return %s %s fromo %s", c.Param("cate"), c.Param("dev"), c.ClientIP())
-
 	var req model.RequestQrcodeReturn
 	if !requestBinding(c, &req) {
-		b.QrdLog.Warnf("Invalid qrcode return request from %s", c.ClientIP())
 		return
 	}
 
@@ -59,6 +52,5 @@ func (b *backend) handleReturn(c *gin.Context) {
 		return
 	}
 
-	b.QrdLog.Infof("Return %s %s successful from %s", c.Param("cate"), c.Param("dev"), c.ClientIP())
 	c.Status(http.StatusOK)
 }

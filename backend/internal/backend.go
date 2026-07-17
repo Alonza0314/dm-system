@@ -72,6 +72,9 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 		BackendLogger: logger,
 	}
 
+	gin.DefaultWriter = logger.GinWriter()
+	gin.DefaultErrorWriter = logger.GinWriter()
+
 	b.router = util.NewGinRouter("", nil)
 	b.router.NoRoute(b.returnPages())
 
@@ -129,6 +132,8 @@ func (b *backend) Stop() {
 	} else {
 		b.BckLog.Infoln("Backend server stopped successfully")
 	}
+
+	b.Processor.Release()
 }
 
 func addServices(router *gin.Engine, b *backend) {
