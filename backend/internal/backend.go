@@ -132,6 +132,8 @@ func (b *backend) Stop() {
 	} else {
 		b.BckLog.Infoln("Backend server stopped successfully")
 	}
+
+	b.Processor.Release()
 }
 
 func addServices(router *gin.Engine, b *backend) {

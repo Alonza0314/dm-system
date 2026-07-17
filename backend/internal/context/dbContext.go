@@ -32,13 +32,13 @@ func newDbContext(dbContextIE *dbContextIE) (*dbContext, error) {
 }
 
 func (d *dbContext) release() {
-	d.BackendLogger.DbLog.Infoln("Release dbContext...")
+	d.DbLog.Infoln("Release dbContext...")
 
 	if err := d.db.Release(); err != nil {
-		d.BackendLogger.DbLog.Errorf("Failed to release dbContext: %v", err)
+		d.DbLog.Errorf("Failed to release dbContext: %v", err)
 	}
 
-	d.BackendLogger.DbLog.Infoln("dbContext released")
+	d.DbLog.Infoln("dbContext released")
 }
 
 func (d *dbContext) Exist(collection, key string) (bool, error) {
