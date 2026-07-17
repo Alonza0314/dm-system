@@ -10,11 +10,13 @@ import styles from './qrcode-page.module.css'
 type DeviceAction = 'borrow' | 'return'
 type ResultState = { type: 'success' } | { type: 'error'; message: string }
 
+const USERNAME_STORAGE_KEY = 'dm-system:qrcode-username'
+
 export default function QrCodePage() {
   const { cate = '', dev = '' } = useParams()
   const { errors, successes, addError, removeNotification } = useNotifications()
 
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState(() => localStorage.getItem(USERNAME_STORAGE_KEY) || '')
   const [action, setAction] = useState<DeviceAction | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [result, setResult] = useState<ResultState | null>(null)
@@ -31,6 +33,8 @@ export default function QrCodePage() {
       addError('Please choose Borrow or Return')
       return
     }
+
+    localStorage.setItem(USERNAME_STORAGE_KEY, trimmedUsername)
 
     setIsSubmitting(true)
     try {
@@ -54,7 +58,6 @@ export default function QrCodePage() {
 
   function handleReset() {
     setResult(null)
-    setUsername('')
     setAction(null)
   }
 
