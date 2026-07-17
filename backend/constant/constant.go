@@ -11,6 +11,7 @@ const (
 	CAT_LOG  = "CAT"
 	DEV_LOG  = "DEV"
 	QRD_LOG  = "QRD"
+	API_LOG  = "API"
 )
 
 // db

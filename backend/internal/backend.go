@@ -72,6 +72,9 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 		BackendLogger: logger,
 	}
 
+	gin.DefaultWriter = logger.GinWriter()
+	gin.DefaultErrorWriter = logger.GinWriter()
+
 	b.router = util.NewGinRouter("", nil)
 	b.router.NoRoute(b.returnPages())
 
