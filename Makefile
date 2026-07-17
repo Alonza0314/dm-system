@@ -1,4 +1,4 @@
-.PHONY: backend frontend tidy lint test run clean
+.PHONY: backend frontend tidy lint test run clean docker
 
 BACKEND_SRC := $(shell find backend -name "*.go")
 FRONTEND_SRC := $(shell find frontend -type f ! -path "frontend/dist/*" ! -path "frontend/node_modules/*")
@@ -60,3 +60,6 @@ run:
 
 clean:
 	rm -rf build
+
+docker:
+	./docker/build.sh

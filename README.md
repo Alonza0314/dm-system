@@ -22,6 +22,7 @@ This is a useful device management for IT.
 | Tidy | `make tidy` |
 | Lint | `make lint` |
 | Test | `make test` |
+| Docker Image | `make docker` |
 
 ## API Level
 
