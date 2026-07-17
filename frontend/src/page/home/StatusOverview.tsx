@@ -1,6 +1,7 @@
 import { useMemo, useState, type MouseEvent } from 'react'
 import type { Category } from '../../api'
 import panelStyles from '../../styles/dashboard-panel.module.css'
+import CategoryDeviceBars from './CategoryDeviceBars'
 import styles from './status-overview.module.css'
 
 interface StatusOverviewProps {
@@ -140,6 +141,8 @@ export default function StatusOverview({ categories }: StatusOverviewProps) {
             <span className={styles.legendValue}>{totalUsing}</span>
           </div>
         </div>
+
+        <CategoryDeviceBars categories={categories} />
 
         {activeBreakdown && (
           <div
