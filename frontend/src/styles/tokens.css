@@ -20,7 +20,13 @@
   --color-on-dark: #ffffff;
 
   --color-error: #d70015;
+  --color-error-bg: rgba(215, 0, 21, 0.08);
   --color-success: var(--color-primary);
+
+  --color-status-idle: #1a7f37;
+  --color-status-idle-bg: rgba(26, 127, 55, 0.12);
+  --color-status-using: #b45309;
+  --color-status-using-bg: rgba(180, 83, 9, 0.12);
 
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
   --font-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", system-ui, sans-serif;

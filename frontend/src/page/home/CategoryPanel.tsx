@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import Button from '../../components/button/button'
 import Modal from '../../components/modal/modal'
 import NotificationContainer from '../../components/notifications/NotificationContainer'
 import { useNotifications } from '../../hooks/useNotifications'
 import { useCategoryContext } from '../../context/CategoryContext'
 import { getErrorMessage } from '../../utils/getErrorMessage'
-import styles from './home-page.module.css'
+import styles from '../../styles/dashboard-panel.module.css'
 import modalStyles from '../../components/modal/modal.module.css'
 
 export default function CategoryPanel() {
@@ -15,6 +16,7 @@ export default function CategoryPanel() {
   const [isCreateOpen, setCreateOpen] = useState(false)
   const [name, setName] = useState('')
   const [isSubmitting, setSubmitting] = useState(false)
+  const [confirmTarget, setConfirmTarget] = useState<string | null>(null)
   const [pendingDelete, setPendingDelete] = useState<string | null>(null)
 
   function openCreate() {
@@ -41,11 +43,14 @@ export default function CategoryPanel() {
     }
   }
 
-  async function handleDelete(categoryName: string) {
-    setPendingDelete(categoryName)
+  async function handleConfirmDelete() {
+    if (!confirmTarget) return
+
+    setPendingDelete(confirmTarget)
     try {
-      await deleteCategory(categoryName)
-      addSuccess(`Category "${categoryName}" deleted`)
+      await deleteCategory(confirmTarget)
+      addSuccess(`Category "${confirmTarget}" deleted`)
+      setConfirmTarget(null)
     } catch (err) {
       addError(getErrorMessage(err, 'Failed to delete category'))
     } finally {
@@ -80,13 +85,20 @@ export default function CategoryPanel() {
           <tbody>
             {categories.map((category) => (
               <tr key={category.name}>
-                <td>{category.name}</td>
+                <td>
+                  <Link
+                    className={styles.nameLink}
+                    to={`/category/${encodeURIComponent(category.name ?? '')}`}
+                  >
+                    {category.name}
+                  </Link>
+                </td>
                 <td>{category.idle_device}</td>
                 <td>{category.using_device}</td>
                 <td className={styles.tableActions}>
                   <Button
                     variant="secondary"
-                    onClick={() => handleDelete(category.name ?? '')}
+                    onClick={() => setConfirmTarget(category.name ?? '')}
                     disabled={pendingDelete === category.name}
                   >
                     {pendingDelete === category.name ? 'Deleting...' : 'Delete'}
@@ -120,6 +132,19 @@ export default function CategoryPanel() {
             autoFocus
           />
         </div>
+      </Modal>
+
+      <Modal
+        isOpen={confirmTarget !== null}
+        onClose={() => setConfirmTarget(null)}
+        title="Delete Category"
+        onSubmit={handleConfirmDelete}
+        submitLabel={pendingDelete ? 'Deleting...' : 'Delete'}
+        isSubmitDisabled={pendingDelete !== null}
+      >
+        <p>
+          Are you sure you want to delete category "{confirmTarget}"? This action cannot be undone.
+        </p>
       </Modal>
     </section>
   )

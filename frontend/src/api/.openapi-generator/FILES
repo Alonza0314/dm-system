@@ -9,8 +9,15 @@ docs/Category.md
 docs/CategoryApi.md
 docs/CategoryCreateRequest.md
 docs/CategoryListResponse.md
+docs/Device.md
+docs/DeviceApi.md
+docs/DeviceCreateRequest.md
+docs/DeviceListResponse.md
+docs/DeviceShort.md
+docs/DeviceUserRequest.md
 docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MessageResponse.md
+docs/QrcodeApi.md
 git_push.sh
 index.ts

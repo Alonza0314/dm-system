@@ -1,6 +1,6 @@
 package model
 
 type ErrorDetail struct {
-	HttpStatus int
-	Detail     string
+	HttpStatus int    `json:"-"`
+	Detail     string `json:"message"`
 }

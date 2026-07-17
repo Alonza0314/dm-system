@@ -29,4 +29,9 @@ This is a useful device management for IT.
 /api
     └─/login(POST)
     └─/logout(POST)
+    └─/category(GET, POST)
+    │   └─/:cate(GET, Delete)
+    └─/device(POST)
+        └─/:cate(GET)
+        └─/:cate/:dev(GET, Delete)
 ```

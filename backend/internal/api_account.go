@@ -37,9 +37,7 @@ func (b *backend) handleLogin(c *gin.Context) {
 	response, errDetail := b.Processor.Login(&req)
 	if errDetail != nil {
 		b.AccLog.Warnf("Login failed for %s: %s", c.ClientIP(), errDetail.Detail)
-		c.JSON(errDetail.HttpStatus, model.ResponseLogin{
-			Message: errDetail.Detail,
-		})
+		c.JSON(errDetail.HttpStatus, errDetail)
 		return
 	}
 
