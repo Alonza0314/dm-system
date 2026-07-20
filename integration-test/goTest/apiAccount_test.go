@@ -11,8 +11,8 @@ import (
 )
 
 func TestApiAccount(t *testing.T) {
-	t.Run("testLogin", testLogin)
-	t.Run("testLogout", testLogout)
+	t.Run("Login", testLogin)
+	t.Run("Logout", testLogout)
 }
 
 var testLoginCases = []struct {
@@ -69,7 +69,7 @@ func testLogin(t *testing.T) {
 				handleSendHttpError(t, err)
 			}
 
-			handleCheckdStatusCode(t, tc.expectedStatusCode, response.StatusCode)
+			handleCheckStatusCode(t, tc.expectedStatusCode, response.StatusCode)
 
 			if response.StatusCode != http.StatusOK {
 				return
@@ -93,5 +93,5 @@ func testLogout(t *testing.T) {
 		handleSendHttpError(t, err)
 	}
 
-	handleCheckdStatusCode(t, http.StatusNoContent, response.StatusCode)
+	handleCheckStatusCode(t, http.StatusNoContent, response.StatusCode)
 }

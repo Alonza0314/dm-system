@@ -1,0 +1,85 @@
+package main_test
+
+import (
+	"backend/model"
+	"encoding/json"
+	"net/http"
+	"testing"
+
+	"github.com/free-ran-ue/util"
+)
+
+var categoryRoutes = []route{
+	newRoute("/category", http.MethodGet),
+	newRoute("/category/cate", http.MethodGet),
+	newRoute("/category", http.MethodPost),
+	newRoute("/category/cate", http.MethodDelete),
+}
+
+func TestApiCategory(t *testing.T) {
+	testAuthRoutes(t, "Category", categoryRoutes)
+
+	login(t)
+
+	t.Run("CreateCategory", testCreateCategory)
+	t.Run("GetCategories", testGetCategories)
+	t.Run("GetCategorey", testGetCategory)
+	t.Run("DeleteCategory", testDeleteCategory)
+}
+
+var categories = []string{
+	"cate1",
+	"cate2",
+}
+
+func testCreateCategory(t *testing.T) {
+	t.Run("Create 1 2", func(t *testing.T) {
+		for _, ct := range categories {
+			request := model.RequestCreateCategory{
+				Name: ct,
+			}
+			requestByte, err := json.Marshal(request)
+			if err != nil {
+				handleJsonMarshalError(t, err)
+			}
+
+			response, err := util.SendHttpRequest(BASE_URL+"/category", http.MethodPost, header, requestByte)
+			if err != nil {
+				handleSendHttpError(t, err)
+			}
+
+			handleCheckStatusCode(t, http.StatusCreated, response.StatusCode)
+		}
+	})
+
+	t.Run("Duplicate create 1 2", func(t *testing.T) {
+		for _, ct := range categories {
+			request := model.RequestCreateCategory{
+				Name: ct,
+			}
+			requestByte, err := json.Marshal(request)
+			if err != nil {
+				handleJsonMarshalError(t, err)
+			}
+
+			response, err := util.SendHttpRequest(BASE_URL+"/category", http.MethodPost, header, requestByte)
+			if err != nil {
+				handleSendHttpError(t, err)
+			}
+
+			handleCheckStatusCode(t, http.StatusConflict, response.StatusCode)
+		}
+	})
+}
+
+func testGetCategories(t *testing.T) {
+
+}
+
+func testGetCategory(t *testing.T) {
+
+}
+
+func testDeleteCategory(t *testing.T) {
+
+}
