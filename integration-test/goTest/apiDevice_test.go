@@ -150,7 +150,7 @@ func testGetDevices(t *testing.T) {
 		}
 	})
 
-	t.Run("Get devices in non-exist category", func(t *testing.T) {
+	t.Run("Non exist category", func(t *testing.T) {
 		response, err := util.SendHttpRequest(BASE_URL+"/device/non-exist", http.MethodGet, header, nil)
 		if err != nil {
 			handleSendHttpError(t, err)
