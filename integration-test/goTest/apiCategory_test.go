@@ -73,7 +73,51 @@ func testCreateCategory(t *testing.T) {
 }
 
 func testGetCategories(t *testing.T) {
+	response, err := util.SendHttpRequest(BASE_URL+"/category", http.MethodGet, header, nil)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
 
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+	var responseGetCategories model.ResponseGetCategories
+	if err := json.Unmarshal(response.Body, &responseGetCategories); err != nil {
+		handleJsonUnmarshalError(t, err)
+	}
+
+	if len(responseGetCategories.Categories) != len(categories) {
+		t.Fatalf("failed to get categories with incorrect length, expected %d, got %d", len(responseGetCategories.Categories), len(categories))
+	}
+
+	for _, ct := range responseGetCategories.Categories {
+		found := false
+
+		for _, cct := range categories {
+			if ct.Name == cct {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			t.Fatalf("could not find the category %s in testcase", ct.Name)
+		}
+	}
+
+	for _, cct := range categories {
+		found := false
+
+		for _, ct := range responseGetCategories.Categories {
+			if cct == ct.Name {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			t.Fatalf("could not find the category %s in response body", cct)
+		}
+	}
 }
 
 func testGetCategory(t *testing.T) {
