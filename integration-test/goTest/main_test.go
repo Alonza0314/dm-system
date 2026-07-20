@@ -75,7 +75,6 @@ func testAuthRoutes(t *testing.T, name string, routes []route) {
 }
 
 func login(t *testing.T) {
-
 	request := model.RequestLogin{
 		Username: "admin",
 		Password: "0000",
