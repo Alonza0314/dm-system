@@ -15,8 +15,11 @@ env:
 jobs:
   build:
     name: Build Check & IT
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/'))
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/')) || github.event_name == 'schedule'
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: [ '1.26.2' ]
     steps:
       - uses: actions/checkout@v4
 
@@ -28,6 +31,11 @@ jobs:
           docker images
           docker run --rm ${{ env.IMAGE_NAME }}:test ls /dm/dm
           docker run --rm ${{ env.IMAGE_NAME }}:test ls /dm/frontend
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
 
       - name: IT
         run: |
