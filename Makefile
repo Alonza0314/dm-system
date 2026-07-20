@@ -63,3 +63,6 @@ clean:
 
 docker:
 	./docker/build.sh
+
+dockertest:
+	./docker/build.sh test
