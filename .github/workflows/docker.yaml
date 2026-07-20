@@ -42,6 +42,7 @@ jobs:
           cd integration-test
           ./test.sh -t TestApiAccount
           ./test.sh -t TestApiCategory
+          ./test.sh -t TestApiDevice
 
   version-release:
     name: Release Version Image
