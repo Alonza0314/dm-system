@@ -53,6 +53,7 @@ sleep 3
 # run test
 echo "Running test... $TARGET_TEST"
 cd goTest
+go mod tidy
 
 go test -v -vet=off -run $TARGET_TEST
 exit_code=$?
