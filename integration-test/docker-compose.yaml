@@ -1,0 +1,12 @@
+services:
+  dm-system:
+    container_name: dm-test
+    image: alonza0314/dm-system:test
+    command: ./dm -c config.yaml
+    expose:
+      - "8888"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./config.yaml:/dm/config.yaml
+      - ./db-test:/dm/db
