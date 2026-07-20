@@ -104,3 +104,20 @@ func login(t *testing.T) {
 	header = make(map[string]string, 0)
 	header["Authorization"] = "Bearer " + responseLogin.Token
 }
+
+func addCategory(t *testing.T, cate string) {
+	request := model.RequestCreateCategory{
+		Name: cate,
+	}
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/category", http.MethodPost, header, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusCreated, response.StatusCode)
+}
