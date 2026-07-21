@@ -29,14 +29,6 @@ func TestApiDevice(t *testing.T) {
 	t.Run("DeleteDevice", testDeleteDevice)
 }
 
-var (
-	category = "cate"
-	devices  = []string{
-		"dev1",
-		"dev2",
-	}
-)
-
 func testCreateDevice(t *testing.T) {
 	t.Run("Create 1 2", func(t *testing.T) {
 		for _, dv := range devices {

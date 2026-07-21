@@ -43,6 +43,7 @@ jobs:
           ./test.sh -t TestApiAccount
           ./test.sh -t TestApiCategory
           ./test.sh -t TestApiDevice
+          ./test.sh -t TestApiQrcode
 
   version-release:
     name: Release Version Image

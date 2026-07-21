@@ -17,6 +17,14 @@ const (
 
 var (
 	header map[string]string
+
+	category = "cate"
+	device   = "dev"
+	devices  = []string{
+		"dev1",
+		"dev2",
+	}
+	user = "tester"
 )
 
 func TestMain(m *testing.M) {
@@ -119,4 +127,23 @@ func addCategory(t *testing.T, cate string) {
 	}
 
 	handleCheckStatusCode(t, http.StatusCreated, response.StatusCode)
+}
+
+func addDevice(t *testing.T, dev string) {
+	request := model.RequestCreateDevice{
+		Category: category,
+		Name:     dev,
+	}
+
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/device", http.MethodPost, header, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
 }
