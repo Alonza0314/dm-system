@@ -74,3 +74,20 @@ This is a useful device management for IT.
     ```bash
     docker compose down
     ```
+
+## Integration Test
+
+In `integration-test` folder, there provides a `test.sh` script for test each API with using `-t` parameter.
+
+```bash
+cd integration-test
+```
+
+Now, there are some tests:
+
+```bash
+./test.sh -t TestApiAccount
+./test.sh -t TestApiCategory
+./test.sh -t TestApiDevice
+./test.sh -t TestApiQrcode
+```
