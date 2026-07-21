@@ -10,6 +10,11 @@ updates:
     schedule:
       interval: "weekly"
 
+  - package-ecosystem: "gomod"
+    directory: "/integration-test/goTest"
+    schedule:
+      interval: "weekly"
+
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:

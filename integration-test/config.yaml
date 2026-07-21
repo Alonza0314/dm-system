@@ -1,0 +1,19 @@
+backend:
+  username: "admin"
+  password: "0000"
+
+  port: 8888
+
+  jwt:
+    secret: "dm-system"
+    expiresIn: 1h
+
+  db:
+    type: "bbolt"
+    path: "./db/dm-system.db"
+
+  frontendFilePath: "frontend"
+
+logger:
+  level: "info" # error/warn/info/debug/trace
+  writeToFile: "false" # true/false

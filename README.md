@@ -47,7 +47,7 @@ This is a useful device management for IT.
     ```bash
     git clone https://github.com/Alonza0314/dm-system.git
     cd dm-system
-    sudo ./install-docker.sh
+    sudo ./docker/install-docker.sh
     ```
 
 2. Check then config
@@ -74,3 +74,20 @@ This is a useful device management for IT.
     ```bash
     docker compose down
     ```
+
+## Integration Test
+
+In `integration-test` folder, there provides a `test.sh` script for test each API with using `-t` parameter.
+
+```bash
+cd integration-test
+```
+
+Now, there are some tests:
+
+```bash
+./test.sh -t TestApiAccount
+./test.sh -t TestApiCategory
+./test.sh -t TestApiDevice
+./test.sh -t TestApiQrcode
+```
