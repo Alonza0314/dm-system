@@ -1,6 +1,7 @@
 package main_test
 
 import (
+	"backend/constant"
 	"backend/model"
 	"encoding/json"
 	"net/http"
@@ -116,7 +117,7 @@ func testGetDevices(t *testing.T) {
 		}
 
 		if len(responseGetDevices.Devices) != len(devices) {
-			t.Fatalf("failed to get devices with incorrect length, expected %d, got %d", len(responseGetDevices.Devices), len(categories))
+			t.Fatalf("failed to get devices with incorrect length, expected %d, got %d", len(categories),  len(responseGetDevices.Devices))
 		}
 
 		for _, dv := range responseGetDevices.Devices {
@@ -161,9 +162,95 @@ func testGetDevices(t *testing.T) {
 }
 
 func testGetDevice(t *testing.T) {
+	for _, dv := range devices {
+		t.Run("Get device "+dv, func(t *testing.T) {
+			response, err := util.SendHttpRequest(BASE_URL+"/device/"+category+"/"+dv, http.MethodGet, header, nil)
+			if err != nil {
+				handleSendHttpError(t, err)
+			}
 
+			handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+			var responseGetDevice model.ResponseGetDevice
+			if err := json.Unmarshal(response.Body, &responseGetDevice); err != nil {
+				handleJsonUnmarshalError(t, err)
+			}
+
+			if responseGetDevice.Category != category {
+				t.Fatalf("incorrect category of device %s, expected %s, got %s", dv, category, responseGetDevice.Category)
+			}
+
+			if responseGetDevice.Name != dv {
+				t.Fatalf("incorrect response device name, expected %s, got %s", dv, responseGetDevice.Name)
+			}
+
+			if responseGetDevice.Status != constant.STATUS_IDLE {
+				t.Fatalf("incorrect device %s init status, expected %s, got %s", dv, constant.STATUS_IDLE, responseGetDevice.Status)
+			}
+
+			if responseGetDevice.User != "" {
+				t.Fatalf("incorrect device %s init user, expected nil, got %s", dv, responseGetDevice.User)
+			}
+		})
+	}
 }
 
 func testDeleteDevice(t *testing.T) {
+	t.Run("Delete 1 2", func(t *testing.T) {
+		for _, dv := range devices {
+			response, err := util.SendHttpRequest(BASE_URL+"/device/"+category+"/"+dv, http.MethodDelete, header, nil)
+			if err != nil {
+				handleSendHttpError(t, err)
+			}
 
+			handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+		}
+	})
+
+	t.Run("Duplicate delete 1 2", func(t *testing.T) {
+		for _, dv := range devices {
+			response, err := util.SendHttpRequest(BASE_URL+"/device/"+category+"/"+dv, http.MethodDelete, header, nil)
+			if err != nil {
+				handleSendHttpError(t, err)
+			}
+
+			handleCheckStatusCode(t, http.StatusNotFound, response.StatusCode)
+		}
+	})
+
+	t.Run("Check no device left", func(t *testing.T) {
+		response, err := util.SendHttpRequest(BASE_URL+"/device/"+category, http.MethodGet, header, nil)
+		if err != nil {
+			handleSendHttpError(t, err)
+		}
+
+		handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+		var responseGetDevices model.ResponseGetDevices
+		if err := json.Unmarshal(response.Body, &responseGetDevices); err != nil {
+			handleJsonUnmarshalError(t, err)
+		}
+
+		if len(responseGetDevices.Devices) != 0 {
+			t.Fatalf("failed to get devices with incorrect length, expected 0, got %d", len(responseGetDevices.Devices))
+		}
+	})
+
+	t.Run("Non exist device", func(t *testing.T) {
+		response, err := util.SendHttpRequest(BASE_URL+"/device/"+category+"/non-exist", http.MethodDelete, header, nil)
+		if err != nil {
+			handleSendHttpError(t, err)
+		}
+
+		handleCheckStatusCode(t, http.StatusNotFound, response.StatusCode)
+	})
+
+	t.Run("Non exist category", func(t *testing.T) {
+		response, err := util.SendHttpRequest(BASE_URL+"/device/non-exist/non-exist", http.MethodDelete, header, nil)
+		if err != nil {
+			handleSendHttpError(t, err)
+		}
+
+		handleCheckStatusCode(t, http.StatusNotFound, response.StatusCode)
+	})
 }

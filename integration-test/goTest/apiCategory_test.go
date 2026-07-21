@@ -86,7 +86,7 @@ func testGetCategories(t *testing.T) {
 	}
 
 	if len(responseGetCategories.Categories) != len(categories) {
-		t.Fatalf("failed to get categories with incorrect length, expected %d, got %d", len(responseGetCategories.Categories), len(categories))
+		t.Fatalf("failed to get categories with incorrect length, expected %d, got %d", len(categories), len(responseGetCategories.Categories))
 	}
 
 	for _, ct := range responseGetCategories.Categories {
@@ -187,7 +187,7 @@ func testDeleteCategory(t *testing.T) {
 		}
 
 		if len(responseGetCategories.Categories) != 0 {
-			t.Fatalf("failed to get categories with incorrect length, expected %d, got %d", len(responseGetCategories.Categories), 0)
+			t.Fatalf("failed to get categories with incorrect length, expected 0, got %d", len(responseGetCategories.Categories))
 		}
 	})
 }
