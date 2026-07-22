@@ -91,3 +91,11 @@ Now, there are some tests:
 ./test.sh -t TestApiDevice
 ./test.sh -t TestApiQrcode
 ```
+
+## DB
+
+| Collection | Key | Value | Note |
+| - | - | - | - |
+| ID | `category`, `device` | number | unique ID for category and device |
+| category | category_name | [Category](./backend/model/category.go) | category list |
+| category-* | device_name | [Device](./backend/model/device.go) | device under target category |
