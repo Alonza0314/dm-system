@@ -1,0 +1,10 @@
+.form {
+  display: grid;
+  gap: var(--space-lg);
+  max-width: 420px;
+  margin-top: var(--space-xl);
+}
+
+.actionRow {
+  margin-top: var(--space-xs);
+}
