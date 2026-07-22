@@ -36,6 +36,12 @@ func NewDmContext(params *DmContextParams) *DmContext {
 	passwordContext, err := newPasswordContext(&passwordContextIE{
 		BackendLogger: params.BackendLogger,
 	})
+	if err != nil {
+		dbContext.release()
+
+		params.BackendLogger.CtxLog.Errorf("Failed to create passwordContext: %v", err)
+		return nil
+	}
 
 	return &DmContext{
 		dbContext:       dbContext,
