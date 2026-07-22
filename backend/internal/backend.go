@@ -148,6 +148,7 @@ func addServices(router *gin.Engine, b *backend) {
 	addRoutes(authGroup, b.getCategoryRoutes())
 	addRoutes(authGroup, b.getDeviceRoutes())
 	addRoutes(apiGroup, b.getQrcodeRoutes())
+	addRoutes(authGroup, b.getSettingRoutes())
 }
 
 func addRoutes(group *gin.RouterGroup, routes util.Routes) {

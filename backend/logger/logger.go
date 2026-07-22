@@ -21,6 +21,8 @@ type BackendLogger struct {
 	DevLog  loggergoModel.LoggerInterface
 	QrdLog  loggergoModel.LoggerInterface
 	GinLog  loggergoModel.LoggerInterface
+	PwdLog  loggergoModel.LoggerInterface
+	SetLog  loggergoModel.LoggerInterface
 }
 
 func NewBackendLogger(level loggergoUtil.LogLevelString, writeToFile bool) *BackendLogger {
@@ -37,8 +39,10 @@ func NewBackendLogger(level loggergoUtil.LogLevelString, writeToFile bool) *Back
 		CtxLog:  logger.WithTags(constant.CTX_LOG),
 		DbLog:   logger.WithTags(constant.DB_LOG),
 		CatLog:  logger.WithTags(constant.CAT_LOG),
-		DevLog:  logger.WithTag(constant.DEV_LOG),
-		QrdLog:  logger.WithTag(constant.QRD_LOG),
-		GinLog:  logger.WithTag(constant.API_LOG),
+		DevLog:  logger.WithTags(constant.DEV_LOG),
+		QrdLog:  logger.WithTags(constant.QRD_LOG),
+		GinLog:  logger.WithTags(constant.API_LOG),
+		PwdLog:  logger.WithTags(constant.PWD_LOG),
+		SetLog:  logger.WithTags(constant.SET_LOG),
 	}
 }

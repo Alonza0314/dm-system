@@ -9,7 +9,7 @@
 #
 ##########################
 
-TEST_POOL="TestApiAccount|TestApiCategory|TestApiDevice|TestApiQrcode"
+TEST_POOL="TestApiAccount|TestApiCategory|TestApiDevice|TestApiQrcode|TestApiSetting"
 
 COMPOSE_FILE="docker-compose.yaml"
 

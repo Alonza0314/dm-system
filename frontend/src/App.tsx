@@ -4,6 +4,7 @@ import HomePage from './page/home/HomePage'
 import CategoryDevicesPage from './page/categoryDevices/CategoryDevicesPage'
 import DeviceDetailPage from './page/deviceDetail/DeviceDetailPage'
 import QrCodePage from './page/qrcode/QrCodePage'
+import SettingsPage from './page/settings/SettingsPage'
 import AppLayout from './layout/AppLayout'
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/category/:categoryName" element={<CategoryDevicesPage />} />
         <Route path="/category/:categoryName/device/:deviceName" element={<DeviceDetailPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

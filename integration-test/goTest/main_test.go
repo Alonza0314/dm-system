@@ -25,6 +25,12 @@ var (
 		"dev2",
 	}
 	user = "tester"
+
+	username1 = "username1"
+	password1 = "password1"
+
+	username2 = "username2"
+	password2 = "password2"
 )
 
 func TestMain(m *testing.M) {

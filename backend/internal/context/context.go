@@ -16,6 +16,7 @@ type DmContextParams struct {
 
 type DmContext struct {
 	*dbContext
+	*passwordContext
 
 	*logger.BackendLogger
 }
@@ -32,8 +33,19 @@ func NewDmContext(params *DmContextParams) *DmContext {
 		return nil
 	}
 
+	passwordContext, err := newPasswordContext(&passwordContextIE{
+		BackendLogger: params.BackendLogger,
+	})
+	if err != nil {
+		dbContext.release()
+
+		params.BackendLogger.CtxLog.Errorf("Failed to create passwordContext: %v", err)
+		return nil
+	}
+
 	return &DmContext{
-		dbContext: dbContext,
+		dbContext:       dbContext,
+		passwordContext: passwordContext,
 
 		BackendLogger: params.BackendLogger,
 	}
@@ -43,12 +55,17 @@ func (ctx *DmContext) Release() {
 	ctx.CtxLog.Infoln("Release DmContext...")
 
 	ctx.dbContext.release()
+	ctx.passwordContext.release()
 
 	ctx.CtxLog.Infoln("DmContext released")
 }
 
 func (ctx *DmContext) Db() *dbContext {
 	return ctx.dbContext
+}
+
+func (ctx *DmContext) Password() *passwordContext {
+	return ctx.passwordContext
 }
 
 func (ctx *DmContext) RequestId(target string) (int, error) {
