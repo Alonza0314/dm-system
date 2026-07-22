@@ -88,7 +88,7 @@ func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *mo
 	category, err := p.DmContext.Db().Load(constant.COLL_CATEGORY, newDeviceUnmarshal.Category)
 	if err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -99,7 +99,7 @@ func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *mo
 	var categoryUnmarshal model.Category
 	if err := json.Unmarshal([]byte(category), &categoryUnmarshal); err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -112,7 +112,7 @@ func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *mo
 	categoryMarshal, err := json.Marshal(categoryUnmarshal)
 	if err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -122,7 +122,7 @@ func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *mo
 
 	if err := p.DmContext.Db().Save(constant.COLL_CATEGORY, newDeviceUnmarshal.Category, string(categoryMarshal)); err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -213,7 +213,7 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 	category, err := p.DmContext.Db().Load(constant.COLL_CATEGORY, newDeviceUnmarshal.Category)
 	if err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -224,7 +224,7 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 	var categoryUnmarshal model.Category
 	if err := json.Unmarshal([]byte(category), &categoryUnmarshal); err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -237,7 +237,7 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 	categoryMarshal, err := json.Marshal(categoryUnmarshal)
 	if err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
@@ -247,7 +247,7 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 
 	if err := p.DmContext.Db().Save(constant.COLL_CATEGORY, newDeviceUnmarshal.Category, string(categoryMarshal)); err != nil {
 		if err := p.DmContext.Db().Save(constant.COLL_CATEGORY_TAG+deviceUnmarshal.Category, deviceUnmarshal.Name, string(device)); err != nil {
-			p.ProcLog.Errorf("failed to rollback device: %s", deviceUnmarshal.Name)
+			p.ProcLog.Errorf("failed to rollback device: %v", err)
 		}
 		return &model.ErrorDetail{
 			HttpStatus: http.StatusInternalServerError,
