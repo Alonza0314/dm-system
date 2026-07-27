@@ -13,6 +13,7 @@ function navSubItemClassName({ isActive }: { isActive: boolean }) {
 
 function Sidebar({ onLogout }: { onLogout: () => void }) {
   const { categories } = useCategoryContext()
+  const navigate = useNavigate()
 
   return (
     <aside className={styles.sidebar}>
@@ -44,6 +45,7 @@ function Sidebar({ onLogout }: { onLogout: () => void }) {
       </div>
 
       <div className={styles.logoutWrap}>
+        <Button variant="secondary" onClick={() => navigate('/settings')}>Settings</Button>
         <Button variant="secondary" onClick={onLogout}>Logout</Button>
       </div>
     </aside>

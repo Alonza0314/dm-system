@@ -38,6 +38,8 @@ This is a useful device management for IT.
     │   └─/:cate(GET)
     │   └─/:cate/:dev(GET, DELETE)
     └─/qrcode/:cate/:dev(POST, DELETE)
+    └─/setting
+        └─/account(POST)
 ```
 
 ## Install - Docker Compose
@@ -97,5 +99,6 @@ Now, there are some tests:
 | Collection | Key | Value | Note |
 | - | - | - | - |
 | ID | `category`, `device` | number | unique ID for category and device |
+| account | username | password | user account and password |
 | category | category_name | [Category](./backend/model/category.go) | category list |
 | category-* | device_name | [Device](./backend/model/device.go) | device under target category |

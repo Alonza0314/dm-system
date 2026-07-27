@@ -116,6 +116,9 @@
 }
 
 .logoutWrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
   padding-top: var(--space-sm);
   border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
@@ -151,6 +154,7 @@
   }
 
   .logoutWrap {
+    flex-direction: row;
     padding-top: 0;
     border-top: 0;
   }

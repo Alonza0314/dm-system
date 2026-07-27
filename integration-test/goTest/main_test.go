@@ -25,6 +25,12 @@ var (
 		"dev2",
 	}
 	user = "tester"
+
+	username1 = "username1"
+	password1 = "password1"
+
+	username2 = "username2"
+	password2 = "password2"
 )
 
 func TestMain(m *testing.M) {
@@ -141,6 +147,25 @@ func addDevice(t *testing.T, dev string) {
 	}
 
 	response, err := util.SendHttpRequest(BASE_URL+"/device", http.MethodPost, header, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+}
+
+func changeAccount(t *testing.T) {
+	request := model.RequestSettingAccount{
+		Username: username1,
+		Password: password1,
+	}
+
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/setting/account", http.MethodPost, header, requestByte)
 	if err != nil {
 		handleSendHttpError(t, err)
 	}

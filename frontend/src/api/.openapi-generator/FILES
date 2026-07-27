@@ -19,5 +19,7 @@ docs/LoginRequest.md
 docs/LoginResponse.md
 docs/MessageResponse.md
 docs/QrcodeApi.md
+docs/SettingAccountRequest.md
+docs/SettingApi.md
 git_push.sh
 index.ts

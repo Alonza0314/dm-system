@@ -2,7 +2,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import Button from '../../components/button/button'
 import NotificationContainer from '../../components/notifications/NotificationContainer'
 import { useNotifications } from '../../hooks/useNotifications'
-import { accountApi, UNAUTHORIZED_MESSAGE_KEY } from '../../apiClient'
+import { accountApi, PENDING_SUCCESS_MESSAGE_KEY, UNAUTHORIZED_MESSAGE_KEY } from '../../apiClient'
 import { getErrorMessage } from '../../utils/getErrorMessage'
 import { useNavigate } from 'react-router-dom'
 import styles from './login-page.module.css'
@@ -16,12 +16,18 @@ export default function LoginPage() {
   const { errors, successes, addError, addSuccess, removeNotification } = useNotifications()
 
   useEffect(() => {
-    const pendingMessage = sessionStorage.getItem(UNAUTHORIZED_MESSAGE_KEY)
-    if (pendingMessage) {
+    const pendingError = sessionStorage.getItem(UNAUTHORIZED_MESSAGE_KEY)
+    if (pendingError) {
       sessionStorage.removeItem(UNAUTHORIZED_MESSAGE_KEY)
-      addError(pendingMessage)
+      addError(pendingError)
     }
-  }, [addError])
+
+    const pendingSuccess = sessionStorage.getItem(PENDING_SUCCESS_MESSAGE_KEY)
+    if (pendingSuccess) {
+      sessionStorage.removeItem(PENDING_SUCCESS_MESSAGE_KEY)
+      addSuccess(pendingSuccess)
+    }
+  }, [addError, addSuccess])
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()

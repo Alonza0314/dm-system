@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AccountApi, CategoryApi, DeviceApi, QrcodeApi, Configuration } from './api'
+import { AccountApi, CategoryApi, DeviceApi, QrcodeApi, SettingApi, Configuration } from './api'
 import { getErrorMessage } from './utils/getErrorMessage'
 
 const apiBasePath = import.meta.env.VITE_API_BASE_URL || window.location.origin
@@ -13,8 +13,10 @@ export const accountApi = new AccountApi(configuration)
 export const categoryApi = new CategoryApi(configuration)
 export const deviceApi = new DeviceApi(configuration)
 export const qrcodeApi = new QrcodeApi(configuration)
+export const settingApi = new SettingApi(configuration)
 
 export const UNAUTHORIZED_MESSAGE_KEY = 'dm-system:unauthorized-message'
+export const PENDING_SUCCESS_MESSAGE_KEY = 'dm-system:pending-success-message'
 
 axios.interceptors.response.use(
   (response) => response,
