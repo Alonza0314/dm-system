@@ -14,6 +14,7 @@ const (
 	API_LOG  = "API"
 	PWD_LOG  = "PWD"
 	SET_LOG  = "SET"
+	UNX_LOG  = "UNX"
 )
 
 // db
@@ -41,4 +42,13 @@ const (
 	PWD_PARALLELISM = 1
 	PWD_SALT_LENGTH = 16
 	PWD_KEY_LENGTH  = 32
+)
+
+type UNIX_MSG_TYPE int
+
+// unix
+const (
+	UNIX_BUFFER_SIZE = 1024
+
+	UNIX_TYPE_RESET_ACCOUNT UNIX_MSG_TYPE = 1
 )

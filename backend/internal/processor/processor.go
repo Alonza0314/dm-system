@@ -13,8 +13,7 @@ type ProcessorParams struct {
 	JwtSecret    string
 	JwtExpiresIn time.Duration
 
-	DbType string
-	DbPath string
+	*context.DmContext
 
 	*logger.BackendLogger
 }
@@ -32,17 +31,6 @@ type Processor struct {
 }
 
 func NewProcessor(params *ProcessorParams) *Processor {
-	dmCtx := context.NewDmContext(&context.DmContextParams{
-		DbType: params.DbType,
-		DbPath: params.DbPath,
-
-		BackendLogger: params.BackendLogger,
-	})
-	if dmCtx == nil {
-		params.BackendLogger.ProcLog.Errorf("Failed to create DmContext")
-		return nil
-	}
-
 	return &Processor{
 		username: params.Username,
 		password: params.Password,
@@ -50,7 +38,7 @@ func NewProcessor(params *ProcessorParams) *Processor {
 		jwtSecret:    params.JwtSecret,
 		jwtExpiresIn: params.JwtExpiresIn,
 
-		DmContext: dmCtx,
+		DmContext: params.DmContext,
 
 		BackendLogger: params.BackendLogger,
 	}

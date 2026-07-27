@@ -23,6 +23,7 @@ type BackendLogger struct {
 	GinLog  loggergoModel.LoggerInterface
 	PwdLog  loggergoModel.LoggerInterface
 	SetLog  loggergoModel.LoggerInterface
+	UnxLog  loggergoModel.LoggerInterface
 }
 
 func NewBackendLogger(level loggergoUtil.LogLevelString, writeToFile bool) *BackendLogger {
@@ -44,5 +45,6 @@ func NewBackendLogger(level loggergoUtil.LogLevelString, writeToFile bool) *Back
 		GinLog:  logger.WithTags(constant.API_LOG),
 		PwdLog:  logger.WithTags(constant.PWD_LOG),
 		SetLog:  logger.WithTags(constant.SET_LOG),
+		UnxLog:  logger.WithTags(constant.UNX_LOG),
 	}
 }

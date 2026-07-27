@@ -2,7 +2,9 @@ package internal
 
 import (
 	"backend/config"
+	bctx "backend/internal/context"
 	"backend/internal/processor"
+	"backend/internal/unix"
 	"backend/logger"
 	"context"
 	"fmt"
@@ -37,10 +39,23 @@ type backend struct {
 
 	processor.Processor
 
+	*unix.UnixServer
+
 	*logger.BackendLogger
 }
 
 func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
+	dmCtx := bctx.NewDmContext(&bctx.DmContextParams{
+		DbType: config.Backend.Db.Type,
+		DbPath: config.Backend.Db.Path,
+
+		BackendLogger: logger,
+	})
+	if dmCtx == nil {
+		logger.BckLog.Errorf("Failed to create DmContext")
+		return nil
+	}
+
 	b := &backend{
 		router: nil,
 		server: nil,
@@ -64,8 +79,16 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 			JwtSecret:    config.Backend.JWT.Secret,
 			JwtExpiresIn: config.Backend.JWT.ExpiresIn,
 
-			DbType: config.Backend.Db.Type,
-			DbPath: config.Backend.Db.Path,
+			DmContext: dmCtx,
+
+			BackendLogger: logger,
+		}),
+
+		UnixServer: unix.NewUnixServer(&unix.UnixServerParams{
+			Enable: *config.Backend.Unix.Enable,
+			Path:   config.Backend.Unix.Path,
+
+			DmContext: dmCtx,
 
 			BackendLogger: logger,
 		}),
@@ -73,7 +96,7 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 		BackendLogger: logger,
 	}
 
-	gin.DefaultWriter, gin.DefaultErrorWriter  = loggergo.NewGinWriter(logger.GinLog), loggergo.NewGinWriter(logger.GinLog)
+	gin.DefaultWriter, gin.DefaultErrorWriter = loggergo.NewGinWriter(logger.GinLog), loggergo.NewGinWriter(logger.GinLog)
 
 	b.router = util.NewGinRouter("", nil)
 	b.router.NoRoute(b.returnPages())
@@ -118,10 +141,19 @@ func (b *backend) Start() {
 	time.Sleep(500 * time.Millisecond)
 
 	b.BckLog.Infof("Backend server started on port: %d", b.port)
+
+	if b.UnixServer != nil {
+		b.UnixServer.Start()
+	}
 }
 
 func (b *backend) Stop() {
 	fmt.Println()
+
+	if b.UnixServer != nil {
+		b.UnixServer.Stop()
+	}
+
 	b.BckLog.Infoln("Stopping backend server...")
 
 	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 5*time.Second)

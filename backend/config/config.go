@@ -17,6 +17,8 @@ type BackendIE struct {
 
 	Db DbIE `yaml:"db" valid:"required"`
 
+	Unix UnixIE `yaml:"unix" valid:"required"`
+
 	FrontendFilePath string `yaml:"frontendFilePath" valid:"required"`
 }
 
@@ -28,6 +30,11 @@ type JWTIE struct {
 type DbIE struct {
 	Type string `yaml:"type" valid:"required"`
 	Path string `yaml:"path"`
+}
+
+type UnixIE struct {
+	Enable *bool  `yaml:"enable" valid:"required"`
+	Path   string `yaml:"path"`
 }
 
 type LoggerIE struct {

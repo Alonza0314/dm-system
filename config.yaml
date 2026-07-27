@@ -12,6 +12,10 @@ backend:
     type: "bbolt"
     path: "/tmp/dm-system.db"
 
+  unix:
+    enable: true
+    path: "/tmp/dm.sock"
+
   frontendFilePath: "build/frontend"
 
 logger:
