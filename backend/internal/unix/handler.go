@@ -2,6 +2,7 @@ package unix
 
 import (
 	"backend/constant"
+	"backend/unixpdu"
 	"fmt"
 	"net"
 	"net/http"
@@ -14,11 +15,7 @@ func (u *UnixServer) handResetAccount(conn net.Conn) {
 		}
 	}()
 
-	response := &UnixPdu{
-		MsgType:        constant.UNIX_TYPE_RESET_ACCOUNT,
-		ResponseStatus: http.StatusOK,
-		Content:        "",
-	}
+	response := unixpdu.NewUnixPdu(constant.UNIX_TYPE_RESET_ACCOUNT, http.StatusOK, "")
 
 	if err := u.DmContext.Db().RemoveAll(constant.COLL_ACCOUNT); err != nil {
 		u.UnxLog.Errorf("failed to remove exist account: %v", err)

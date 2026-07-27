@@ -4,6 +4,7 @@ import (
 	"backend/constant"
 	bctx "backend/internal/context"
 	"backend/logger"
+	"backend/unixpdu"
 	"errors"
 	"net"
 	"os"
@@ -110,7 +111,7 @@ func (u *UnixServer) dispatcher(conn net.Conn) {
 	u.UnxLog.Debugf("Read %d bytes from unix conn", n)
 	u.UnxLog.Tracef("Unix read: %v", buffer[:n])
 
-	var unixPdu UnixPdu
+	var unixPdu unixpdu.UnixPdu
 	if err := unixPdu.Unmarshal(buffer[:n]); err != nil {
 		u.UnxLog.Errorf("failed to umarshl unix buffer: %v", err)
 

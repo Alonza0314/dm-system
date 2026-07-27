@@ -1,4 +1,4 @@
-package unix
+package unixpdu
 
 import (
 	"backend/constant"
@@ -11,10 +11,11 @@ type UnixPdu struct {
 	Content        string                 `json:"content"`
 }
 
-func NewUnixPdu(unixType constant.UNIX_MSG_TYPE, content string) *UnixPdu {
+func NewUnixPdu(unixType constant.UNIX_MSG_TYPE, responseStatus int, content string) *UnixPdu {
 	return &UnixPdu{
-		MsgType: unixType,
-		Content: content,
+		MsgType:        unixType,
+		ResponseStatus: responseStatus,
+		Content:        content,
 	}
 }
 

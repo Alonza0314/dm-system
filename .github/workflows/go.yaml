@@ -27,3 +27,12 @@ jobs:
 
       - name: Make Backend
         run: make
+
+      - name: Tool build
+        run: cd tool && go build -v ./...
+
+      - name: Tool test
+        run: cd tool && go test -v ./...
+
+      - name: Tool make
+        run: cd tool && make

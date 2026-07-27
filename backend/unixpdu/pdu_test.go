@@ -1,8 +1,8 @@
-package unix_test
+package unixpdu_test
 
 import (
 	"backend/constant"
-	"backend/internal/unix"
+	"backend/unixpdu"
 	"net/http"
 	"reflect"
 	"testing"
@@ -30,14 +30,14 @@ var testUnixPduCases = []struct {
 func TestUnixPdu(t *testing.T) {
 	for _, tc := range testUnixPduCases {
 		t.Run(tc.name, func(t *testing.T) {
-			send := unix.NewUnixPdu(tc.msgType, tc.content)
+			send := unixpdu.NewUnixPdu(tc.msgType, -1, tc.content)
 
 			sendBytes, err := send.Marshal()
 			if err != nil {
 				t.Fatal(err.Error())
 			}
 
-			var recv unix.UnixPdu
+			var recv unixpdu.UnixPdu
 			if err := recv.Unmarshal(sendBytes); err != nil {
 				t.Fatal(err.Error())
 			}
