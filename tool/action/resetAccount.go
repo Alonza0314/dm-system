@@ -44,4 +44,5 @@ func HandleResetAccount(unixClient *unix.UnixClient) {
 		fmt.Printf("failed to reset account: %s\n", response.Content)
 	}
 
+	fmt.Println("Reset account success")
 }
