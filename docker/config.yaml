@@ -14,7 +14,7 @@ backend:
 
   unix:
     enable: true
-    path: "/run/dm.sock"
+    path: "./dm.sock"
 
   frontendFilePath: "frontend"
 
