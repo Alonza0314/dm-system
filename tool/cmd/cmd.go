@@ -14,7 +14,7 @@ var (
 		Run: toolFunc,
 	}
 
-	defaultSockerFile = "./dm.Sock"
+	defaultSocketFile = "./dm.Sock"
 )
 
 func init() {
@@ -33,13 +33,13 @@ func toolFunc(cmd *cobra.Command, args []string) {
 		return
 	}
 
-	defaultSockerFile, err := cmd.Flags().GetString("socket")
+	defaultSocketFile, err = cmd.Flags().GetString("socket")
 	if err != nil {
 		fmt.Printf("failed to get socket file: %v\n", err)
 		return
 	}
 
-	unixClient := unix.NewUnixClient(defaultSockerFile)
+	unixClient := unix.NewUnixClient(defaultSocketFile)
 	if unixClient == nil {
 		return
 	}
