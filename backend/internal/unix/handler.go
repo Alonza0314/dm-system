@@ -9,6 +9,8 @@ import (
 )
 
 func (u *UnixServer) handResetAccount(conn net.Conn) {
+	u.UnxLog.Infoln("handle reset account")
+
 	defer func() {
 		if err := conn.Close(); err != nil {
 			u.UnxLog.Errorf("failed to close unix conn after handler: %v", err)
@@ -34,4 +36,6 @@ func (u *UnixServer) handResetAccount(conn net.Conn) {
 	}
 	u.UnxLog.Debugf("Write %d bytes to unix conn", n)
 	u.UnxLog.Tracef("Unix write: %v", responseBytes)
+
+	u.UnxLog.Infoln("account resetted")
 }
