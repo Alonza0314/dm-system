@@ -8,6 +8,9 @@ import (
 )
 
 func (p *Processor) SettingAccount(req *model.RequestSettingAccount) *model.ErrorDetail {
+	p.DmContext.Db().AccountLock().Lock()
+	defer p.DmContext.Db().AccountLock().Unlock()
+
 	account, err := p.DmContext.LoadAll(constant.COLL_ACCOUNT)
 	if err != nil {
 		return &model.ErrorDetail{
