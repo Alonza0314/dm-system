@@ -76,6 +76,9 @@ func (p *Processor) GetCategory(cate string) (*model.ResponseGetCategory, *model
 }
 
 func (p *Processor) CreateCategory(req *model.RequestCreateCategory) (*model.ResponseCreateCategory, *model.ErrorDetail) {
+	p.DmContext.Db().MainLock().Lock()
+	defer p.DmContext.Db().MainLock().Unlock()
+
 	exist, err := p.DmContext.Db().Exist(constant.COLL_CATEGORY, req.Name)
 	if err != nil {
 		return nil, &model.ErrorDetail{
@@ -120,6 +123,9 @@ func (p *Processor) CreateCategory(req *model.RequestCreateCategory) (*model.Res
 }
 
 func (p *Processor) DeleteCategory(cate string) (*model.ResponseDeleteCategory, *model.ErrorDetail) {
+	p.DmContext.Db().MainLock().Lock()
+	defer p.DmContext.Db().MainLock().Unlock()
+
 	exist, err := p.DmContext.Exist(constant.COLL_CATEGORY, cate)
 	if err != nil {
 		return nil, &model.ErrorDetail{

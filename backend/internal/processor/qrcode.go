@@ -9,6 +9,9 @@ import (
 )
 
 func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *model.ErrorDetail {
+	p.DmContext.Db().MainLock().Lock()
+	defer p.DmContext.Db().MainLock().Unlock()
+
 	existCate, err := p.DmContext.Db().Exist(constant.COLL_CATEGORY, cate)
 	if err != nil {
 		return &model.ErrorDetail{
@@ -134,6 +137,9 @@ func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *mo
 }
 
 func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *model.ErrorDetail {
+	p.DmContext.Db().MainLock().Lock()
+	defer p.DmContext.Db().MainLock().Unlock()
+
 	existCate, err := p.DmContext.Db().Exist(constant.COLL_CATEGORY, cate)
 	if err != nil {
 		return &model.ErrorDetail{
