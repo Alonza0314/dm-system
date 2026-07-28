@@ -41,6 +41,8 @@ export interface Device {
     'name'?: string;
     'status'?: string;
     'user'?: string;
+    'lastBorrow'?: string | null;
+    'lastReturn'?: string | null;
     'owner'?: string;
     'note'?: string;
 }
@@ -58,6 +60,8 @@ export interface DeviceShort {
     'name'?: string;
     'status'?: string;
     'user'?: string;
+    'lastBorrow'?: string | null;
+    'lastReturn'?: string | null;
 }
 export interface DeviceUserRequest {
     'user': string;

@@ -624,6 +624,14 @@ components:
         user:
           type: string
           example: ''
+        lastBorrow:
+          type: string
+          format: date-time
+          nullable: true
+        lastReturn:
+          type: string
+          format: date-time
+          nullable: true
     DeviceListResponse:
       type: object
       properties:
@@ -649,6 +657,14 @@ components:
         user:
           type: string
           example: ''
+        lastBorrow:
+          type: string
+          format: date-time
+          nullable: true
+        lastReturn:
+          type: string
+          format: date-time
+          nullable: true
         owner:
           type: string
           example: alonza

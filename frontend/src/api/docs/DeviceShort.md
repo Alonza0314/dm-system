@@ -9,6 +9,8 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional] [default to undefined]
 **status** | **string** |  | [optional] [default to undefined]
 **user** | **string** |  | [optional] [default to undefined]
+**lastBorrow** | **string** |  | [optional] [default to undefined]
+**lastReturn** | **string** |  | [optional] [default to undefined]
 
 ## Example
 
@@ -20,6 +22,8 @@ const instance: DeviceShort = {
     name,
     status,
     user,
+    lastBorrow,
+    lastReturn,
 };
 ```
 

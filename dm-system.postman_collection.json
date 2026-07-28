@@ -1455,15 +1455,15 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Thu, 16 Jul 2026 10:03:51 GMT"
+                  "value": "Tue, 28 Jul 2026 08:19:53 GMT"
                 },
                 {
                   "key": "Content-Length",
-                  "value": "111"
+                  "value": "100"
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"Devices\": [\n        {\n            \"id\": 3,\n            \"name\": \"16plus\",\n            \"status\": \"idle\",\n            \"user\": \"\"\n        },\n        {\n            \"id\": 4,\n            \"name\": \"17\",\n            \"status\": \"idle\",\n            \"user\": \"\"\n        }\n    ]\n}"
+              "body": "{\n    \"Devices\": [\n        {\n            \"id\": 1,\n            \"name\": \"16plus\",\n            \"status\": \"idle\",\n            \"user\": \"\",\n            \"lastBorrow\": null,\n            \"lastReturn\": null\n        }\n    ]\n}"
             },
             {
               "name": "401",
@@ -1696,15 +1696,123 @@
                 },
                 {
                   "key": "Date",
-                  "value": "Thu, 16 Jul 2026 10:17:14 GMT"
+                  "value": "Tue, 28 Jul 2026 08:20:34 GMT"
                 },
                 {
                   "key": "Content-Length",
-                  "value": "108"
+                  "value": "144"
                 }
               ],
               "cookie": [],
-              "body": "{\n    \"id\": 3,\n    \"category\": \"iphone\",\n    \"name\": \"16plus\",\n    \"status\": \"idle\",\n    \"user\": \"\",\n    \"owner\": \"alonza\",\n    \"note\": \"good iphone\"\n}"
+              "body": "{\n    \"id\": 1,\n    \"category\": \"iphone\",\n    \"name\": \"16plus\",\n    \"status\": \"idle\",\n    \"user\": \"\",\n    \"lastBorrow\": null,\n    \"lastReturn\": null,\n    \"owner\": \"alonza\",\n    \"note\": \"good iphone\"\n}"
+            },
+            {
+              "name": "200-borrow",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/device/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "device",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 28 Jul 2026 08:21:14 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "184"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"category\": \"iphone\",\n    \"name\": \"16plus\",\n    \"status\": \"using\",\n    \"user\": \"alonza\",\n    \"lastBorrow\": \"2026-07-28T16:21:05.572389109+08:00\",\n    \"lastReturn\": null,\n    \"owner\": \"alonza\",\n    \"note\": \"good iphone\"\n}"
+            },
+            {
+              "name": "200-return",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{SHEMA}}{{BACKEND_URL}}/api/device/iphone/16plus",
+                  "host": [
+                    "{{SHEMA}}{{BACKEND_URL}}"
+                  ],
+                  "path": [
+                    "api",
+                    "device",
+                    "iphone",
+                    "16plus"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "Content-Type, Authorization"
+                },
+                {
+                  "key": "Access-Control-Allow-Methods",
+                  "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                  "key": "Access-Control-Allow-Origin",
+                  "value": "*"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json; charset=utf-8"
+                },
+                {
+                  "key": "Date",
+                  "value": "Tue, 28 Jul 2026 08:21:40 GMT"
+                },
+                {
+                  "key": "Content-Length",
+                  "value": "215"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"category\": \"iphone\",\n    \"name\": \"16plus\",\n    \"status\": \"idle\",\n    \"user\": \"alonza\",\n    \"lastBorrow\": \"2026-07-28T16:21:05.572389109+08:00\",\n    \"lastReturn\": \"2026-07-28T16:21:37.56757591+08:00\",\n    \"owner\": \"alonza\",\n    \"note\": \"good iphone\"\n}"
             },
             {
               "name": "401",
