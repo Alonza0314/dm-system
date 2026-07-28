@@ -3,6 +3,7 @@ package context
 import (
 	"backend/internal/db"
 	"backend/logger"
+	"sync"
 )
 
 type dbContextIE struct {
@@ -14,6 +15,9 @@ type dbContextIE struct {
 
 type dbContext struct {
 	db db.DbIf
+
+	mainLock    sync.RWMutex
+	accountLock sync.RWMutex
 
 	*logger.BackendLogger
 }
@@ -27,6 +31,9 @@ func newDbContext(dbContextIE *dbContextIE) (*dbContext, error) {
 	return &dbContext{
 		db: db,
 
+		mainLock:    sync.RWMutex{},
+		accountLock: sync.RWMutex{},
+
 		BackendLogger: dbContextIE.BackendLogger,
 	}, nil
 }
@@ -39,6 +46,14 @@ func (d *dbContext) release() {
 	}
 
 	d.DbLog.Infoln("dbContext released")
+}
+
+func (d *dbContext) MainLock() *sync.RWMutex {
+	return &d.mainLock
+}
+
+func (d *dbContext) AccountLock() *sync.RWMutex {
+	return &d.accountLock
 }
 
 func (d *dbContext) Exist(collection, key string) (bool, error) {

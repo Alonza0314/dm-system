@@ -12,6 +12,9 @@ import (
 func (p *Processor) Login(req *model.RequestLogin) (*model.ResponseLogin, *model.ErrorDetail) {
 	p.ProcLog.Debugf("Processing login for username: %s", req.Username)
 
+	// unlock at line #27
+	p.DmContext.Db().AccountLock().RLock()
+
 	account, err := p.DmContext.Db().LoadAll(constant.COLL_ACCOUNT)
 	if err != nil {
 		return nil, &model.ErrorDetail{
@@ -20,6 +23,8 @@ func (p *Processor) Login(req *model.RequestLogin) (*model.ResponseLogin, *model
 		}
 	}
 	p.ProcLog.Debugf("account get from db: %v", account)
+
+	p.DmContext.Db().AccountLock().RUnlock()
 
 	if len(account) != 0 { // user had modified the username or password
 		hashValue, found := account[req.Username]
