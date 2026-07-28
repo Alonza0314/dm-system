@@ -6,7 +6,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
 )
+
+func taiwanNow() *time.Time {
+	now := time.Now().In(time.FixedZone("CST", 8*60*60))
+	return &now
+}
 
 func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *model.ErrorDetail {
 	p.DmContext.Db().MainLock().Lock()
@@ -64,13 +70,15 @@ func (p *Processor) Borrow(cate, dev string, req *model.RequestQrcodeBorrow) *mo
 	}
 
 	newDeviceUnmarshal := model.Device{
-		Id:       deviceUnmarshal.Id,
-		Category: deviceUnmarshal.Category,
-		Name:     deviceUnmarshal.Name,
-		Status:   constant.STATUS_USING,
-		User:     req.User,
-		Owner:    deviceUnmarshal.Owner,
-		Note:     deviceUnmarshal.Note,
+		Id:         deviceUnmarshal.Id,
+		Category:   deviceUnmarshal.Category,
+		Name:       deviceUnmarshal.Name,
+		Status:     constant.STATUS_USING,
+		User:       req.User,
+		LastBorrow: taiwanNow(),
+		LastReturn: nil,
+		Owner:      deviceUnmarshal.Owner,
+		Note:       deviceUnmarshal.Note,
 	}
 
 	newDeviceMarshal, err := json.Marshal(newDeviceUnmarshal)
@@ -192,13 +200,15 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 	}
 
 	newDeviceUnmarshal := model.Device{
-		Id:       deviceUnmarshal.Id,
-		Category: deviceUnmarshal.Category,
-		Name:     deviceUnmarshal.Name,
-		Status:   constant.STATUS_IDLE,
-		User:     "",
-		Owner:    deviceUnmarshal.Owner,
-		Note:     deviceUnmarshal.Note,
+		Id:         deviceUnmarshal.Id,
+		Category:   deviceUnmarshal.Category,
+		Name:       deviceUnmarshal.Name,
+		Status:     constant.STATUS_IDLE,
+		User:       deviceUnmarshal.User,
+		LastBorrow: deviceUnmarshal.LastBorrow,
+		LastReturn: taiwanNow(),
+		Owner:      deviceUnmarshal.Owner,
+		Note:       deviceUnmarshal.Note,
 	}
 
 	newDeviceMarshal, err := json.Marshal(newDeviceUnmarshal)

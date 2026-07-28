@@ -12,6 +12,11 @@ import type { DeviceShort } from '../../api'
 import styles from '../../styles/dashboard-panel.module.css'
 import modalStyles from '../../components/modal/modal.module.css'
 
+function formatTimestamp(value?: string | null) {
+  if (!value) return '—'
+  return new Date(value).toLocaleString()
+}
+
 interface DeviceForm {
   category: string
   name: string
@@ -150,6 +155,8 @@ export default function CategoryDevicesPage() {
               <th>Name</th>
               <th>Status</th>
               <th>User</th>
+              <th>Last Borrow</th>
+              <th>Last Return</th>
               <th aria-label="Actions" />
             </tr>
           </thead>
@@ -167,6 +174,8 @@ export default function CategoryDevicesPage() {
                   </span>
                 </td>
                 <td>{device.user || '—'}</td>
+                <td>{formatTimestamp(device.lastBorrow)}</td>
+                <td>{formatTimestamp(device.lastReturn)}</td>
                 <td className={styles.tableActions}>
                   <Button
                     variant="utility"
@@ -190,7 +199,7 @@ export default function CategoryDevicesPage() {
             ))}
             {!isLoading && devices.length === 0 && (
               <tr>
-                <td colSpan={4} className={styles.tableEmpty}>No devices yet.</td>
+                <td colSpan={6} className={styles.tableEmpty}>No devices yet.</td>
               </tr>
             )}
           </tbody>

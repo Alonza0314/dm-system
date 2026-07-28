@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **name** | **string** |  | [optional] [default to undefined]
 **status** | **string** |  | [optional] [default to undefined]
 **user** | **string** |  | [optional] [default to undefined]
+**lastBorrow** | **string** |  | [optional] [default to undefined]
+**lastReturn** | **string** |  | [optional] [default to undefined]
 **owner** | **string** |  | [optional] [default to undefined]
 **note** | **string** |  | [optional] [default to undefined]
 
@@ -24,6 +26,8 @@ const instance: Device = {
     name,
     status,
     user,
+    lastBorrow,
+    lastReturn,
     owner,
     note,
 };

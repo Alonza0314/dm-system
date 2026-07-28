@@ -10,9 +10,19 @@ const FIELD_LABELS: Array<{ key: keyof Device; label: string }> = [
   { key: 'category', label: 'Category' },
   { key: 'owner', label: 'Owner' },
   { key: 'user', label: 'User' },
+  { key: 'lastBorrow', label: 'Last Borrow' },
+  { key: 'lastReturn', label: 'Last Return' },
   { key: 'note', label: 'Note' },
   { key: 'id', label: 'ID' },
 ]
+
+const TIMESTAMP_FIELDS = new Set<keyof Device>(['lastBorrow', 'lastReturn'])
+
+function formatFieldValue(key: keyof Device, value: Device[keyof Device]) {
+  if (!value) return '—'
+  if (TIMESTAMP_FIELDS.has(key)) return new Date(value as string).toLocaleString()
+  return value
+}
 
 export default function DeviceDetailPage() {
   const { categoryName = '', deviceName = '' } = useParams()
@@ -74,7 +84,7 @@ export default function DeviceDetailPage() {
             {FIELD_LABELS.map(({ key, label }) => (
               <div key={key} className={styles.fieldCard}>
                 <p className={styles.fieldLabel}>{label}</p>
-                <p className={styles.fieldValue}>{device[key] || '—'}</p>
+                <p className={styles.fieldValue}>{formatFieldValue(key, device[key])}</p>
               </div>
             ))}
           </div>

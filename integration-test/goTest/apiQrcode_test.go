@@ -241,8 +241,8 @@ func testReturn(t *testing.T) {
 			t.Fatalf("incorrect device %s status, expected %s, got %s", device, constant.STATUS_IDLE, responseGetDevice.Status)
 		}
 
-		if responseGetDevice.User != "" {
-			t.Fatalf("incorrect device %s user, expected nil, got %s", device, responseGetDevice.User)
+		if responseGetDevice.User != user {
+			t.Fatalf("incorrect device %s user, expected %s, got %s", device, user, responseGetDevice.User)
 		}
 	})
 }
