@@ -92,6 +92,7 @@ Now, there are some tests:
 ./test.sh -t TestApiCategory
 ./test.sh -t TestApiDevice
 ./test.sh -t TestApiQrcode
+./test.sh -t TestUnixResetAccount
 ```
 
 ## DB
