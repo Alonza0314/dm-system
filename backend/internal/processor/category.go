@@ -9,6 +9,9 @@ import (
 )
 
 func (p *Processor) GetCategories() (*model.ResponseGetCategories, *model.ErrorDetail) {
+	p.DmContext.Db().MainLock().RLock()
+	defer p.DmContext.Db().MainLock().RUnlock()
+
 	categories, err := p.DmContext.Db().LoadAll(constant.COLL_CATEGORY)
 	if err != nil {
 		return nil, &model.ErrorDetail{
@@ -36,6 +39,9 @@ func (p *Processor) GetCategories() (*model.ResponseGetCategories, *model.ErrorD
 }
 
 func (p *Processor) GetCategory(cate string) (*model.ResponseGetCategory, *model.ErrorDetail) {
+	p.DmContext.Db().MainLock().RLock()
+	defer p.DmContext.Db().MainLock().RUnlock()
+
 	exist, err := p.DmContext.Exist(constant.COLL_CATEGORY, cate)
 	if err != nil {
 		return nil, &model.ErrorDetail{

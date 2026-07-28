@@ -9,6 +9,9 @@ import (
 )
 
 func (p *Processor) GetDevices(cate string) (*model.ResponseGetDevices, *model.ErrorDetail) {
+	p.DmContext.Db().MainLock().RLock()
+	defer p.DmContext.Db().MainLock().RUnlock()
+
 	existCate, err := p.DmContext.Db().Exist(constant.COLL_CATEGORY, cate)
 	if err != nil {
 		return nil, &model.ErrorDetail{
@@ -50,6 +53,9 @@ func (p *Processor) GetDevices(cate string) (*model.ResponseGetDevices, *model.E
 }
 
 func (p *Processor) GetDevice(cate, dev string) (*model.ResponseGetDevice, *model.ErrorDetail) {
+	p.DmContext.Db().MainLock().RLock()
+	defer p.DmContext.Db().MainLock().RUnlock()
+
 	existCate, err := p.DmContext.Db().Exist(constant.COLL_CATEGORY, cate)
 	if err != nil {
 		return nil, &model.ErrorDetail{
