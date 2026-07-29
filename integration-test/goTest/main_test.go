@@ -155,6 +155,15 @@ func addDevice(t *testing.T, dev string) {
 	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
 }
 
+func deleteDevice(t *testing.T, dev string) {
+	response, err := util.SendHttpRequest(BASE_URL+"/device/"+category+"/"+dev, http.MethodDelete, header, nil)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+}
+
 func changeAccount(t *testing.T) {
 	request := model.RequestSettingAccount{
 		Username: username1,

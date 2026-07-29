@@ -23,6 +23,11 @@ func TestApiHistory(t *testing.T) {
 
 	testGetHistory(t)
 	testMaxHistory(t)
+
+	deleteDevice(t, device)
+	addDevice(t, device)
+
+	testRecordAfterDeviceDelete(t)
 }
 
 func testGetHistory(t *testing.T) {
@@ -97,6 +102,26 @@ func testMaxHistory(t *testing.T) {
 			if history.Histories[j].User != fmt.Sprintf("%s-%d", user, i) {
 				t.Fatalf("failed to verify the history with username, expected %s, but got %s", fmt.Sprintf("%s-%d", user, i), history.Histories[j].User)
 			}
+		}
+	})
+}
+
+func testRecordAfterDeviceDelete(t *testing.T) {
+	t.Run("No record after re-add device", func(t *testing.T) {
+		response, err := util.SendHttpRequest(BASE_URL+"/history/"+category+"/"+device, http.MethodGet, header, nil)
+		if err != nil {
+			handleSendHttpError(t, err)
+		}
+
+		handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+		var history model.ResponseGetHistory
+		if err := json.Unmarshal(response.Body, &history); err != nil {
+			handleJsonUnmarshalError(t, err)
+		}
+
+		if len(history.Histories) != 0 {
+			t.Fatalf("failed to get history which should be 0 record, but got %d records", len(history.Histories))
 		}
 	})
 }
