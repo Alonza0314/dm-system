@@ -79,6 +79,8 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 			JwtSecret:    config.Backend.JWT.Secret,
 			JwtExpiresIn: config.Backend.JWT.ExpiresIn,
 
+			MaxHistory: config.Backend.MaxHistory,
+
 			DmContext: dmCtx,
 
 			BackendLogger: logger,

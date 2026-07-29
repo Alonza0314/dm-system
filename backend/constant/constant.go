@@ -22,6 +22,7 @@ const (
 	COLL_ID       = "ID"
 	COLL_CATEGORY = "category"
 	COLL_ACCOUNT  = "account"
+	COLL_HISTORY  = "history"
 
 	COLL_CATEGORY_TAG = "category-"
 

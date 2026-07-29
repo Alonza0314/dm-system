@@ -19,6 +19,8 @@ type BackendIE struct {
 
 	Unix UnixIE `yaml:"unix" valid:"required"`
 
+	MaxHistory int `yaml:"maxHistory" valid:"required"`
+
 	FrontendFilePath string `yaml:"frontendFilePath" valid:"required"`
 }
 

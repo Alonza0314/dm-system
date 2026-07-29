@@ -13,6 +13,8 @@ type ProcessorParams struct {
 	JwtSecret    string
 	JwtExpiresIn time.Duration
 
+	MaxHistory int
+
 	*context.DmContext
 
 	*logger.BackendLogger
@@ -24,6 +26,8 @@ type Processor struct {
 
 	jwtSecret    string
 	jwtExpiresIn time.Duration
+
+	maxHistory int
 
 	*context.DmContext
 
@@ -37,6 +41,8 @@ func NewProcessor(params *ProcessorParams) *Processor {
 
 		jwtSecret:    params.JwtSecret,
 		jwtExpiresIn: params.JwtExpiresIn,
+
+		maxHistory: params.MaxHistory,
 
 		DmContext: params.DmContext,
 
