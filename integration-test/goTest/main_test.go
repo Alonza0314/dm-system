@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/free-ran-ue/util"
 )
@@ -171,4 +172,42 @@ func changeAccount(t *testing.T) {
 	}
 
 	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+}
+
+func borrow(t *testing.T, cate, dev, usr string) {
+	request := &model.RequestQrcodeBorrow{
+		User: usr,
+	}
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/qrcode/"+cate+"/"+dev, http.MethodPost, nil, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+	time.Sleep(1 * time.Millisecond)
+}
+
+func returnn(t *testing.T, cate, dev, usr string) {
+	request := &model.RequestQrcodeBorrow{
+		User: usr,
+	}
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/qrcode/"+cate+"/"+dev, http.MethodDelete, nil, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+	time.Sleep(1 * time.Millisecond)
 }
