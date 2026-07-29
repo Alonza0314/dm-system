@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/free-ran-ue/util"
 )
@@ -154,6 +155,15 @@ func addDevice(t *testing.T, dev string) {
 	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
 }
 
+func deleteDevice(t *testing.T, dev string) {
+	response, err := util.SendHttpRequest(BASE_URL+"/device/"+category+"/"+dev, http.MethodDelete, header, nil)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+}
+
 func changeAccount(t *testing.T) {
 	request := model.RequestSettingAccount{
 		Username: username1,
@@ -171,4 +181,42 @@ func changeAccount(t *testing.T) {
 	}
 
 	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+}
+
+func borrow(t *testing.T, cate, dev, usr string) {
+	request := &model.RequestQrcodeBorrow{
+		User: usr,
+	}
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/qrcode/"+cate+"/"+dev, http.MethodPost, nil, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+	time.Sleep(1 * time.Millisecond)
+}
+
+func returnn(t *testing.T, cate, dev, usr string) {
+	request := &model.RequestQrcodeBorrow{
+		User: usr,
+	}
+	requestByte, err := json.Marshal(request)
+	if err != nil {
+		handleJsonMarshalError(t, err)
+	}
+
+	response, err := util.SendHttpRequest(BASE_URL+"/qrcode/"+cate+"/"+dev, http.MethodDelete, nil, requestByte)
+	if err != nil {
+		handleSendHttpError(t, err)
+	}
+
+	handleCheckStatusCode(t, http.StatusOK, response.StatusCode)
+
+	time.Sleep(1 * time.Millisecond)
 }

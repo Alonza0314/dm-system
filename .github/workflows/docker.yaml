@@ -45,6 +45,7 @@ jobs:
           ./test.sh -t TestApiDevice
           ./test.sh -t TestApiQrcode
           ./test.sh -t TestApiSetting
+          ./test.sh -t TestApiHistory
           ./test.sh -t TestUnixResetAccount
 
   version-release:

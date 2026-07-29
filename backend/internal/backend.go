@@ -2,6 +2,7 @@ package internal
 
 import (
 	"backend/config"
+	"backend/constant"
 	bctx "backend/internal/context"
 	"backend/internal/processor"
 	"backend/internal/unix"
@@ -56,6 +57,11 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 		return nil
 	}
 
+	maxHistory := constant.DEFAULT_MAX_HISTORY
+	if config.Backend.MaxHistory > 0 {
+		maxHistory = config.Backend.MaxHistory
+	}
+
 	b := &backend{
 		router: nil,
 		server: nil,
@@ -78,6 +84,8 @@ func NewBackend(config *config.Config, logger *logger.BackendLogger) *backend {
 
 			JwtSecret:    config.Backend.JWT.Secret,
 			JwtExpiresIn: config.Backend.JWT.ExpiresIn,
+
+			MaxHistory: maxHistory,
 
 			DmContext: dmCtx,
 
@@ -181,6 +189,7 @@ func addServices(router *gin.Engine, b *backend) {
 	addRoutes(authGroup, b.getDeviceRoutes())
 	addRoutes(apiGroup, b.getQrcodeRoutes())
 	addRoutes(authGroup, b.getSettingRoutes())
+	addRoutes(authGroup, b.getHistoryRoutes())
 }
 
 func addRoutes(group *gin.RouterGroup, routes util.Routes) {

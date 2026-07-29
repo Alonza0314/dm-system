@@ -39,7 +39,8 @@ This is a useful device management for IT.
     │   └─/:cate/:dev(GET, DELETE)
     └─/qrcode/:cate/:dev(POST, DELETE)
     └─/setting
-        └─/account(POST)
+    │   └─/account(POST)
+    └─/history/:cate/:dev(GET)
 ```
 
 ## Install - Docker Compose
@@ -92,6 +93,7 @@ Now, there are some tests:
 ./test.sh -t TestApiCategory
 ./test.sh -t TestApiDevice
 ./test.sh -t TestApiQrcode
+./test.sh -t TestApiHistory
 ./test.sh -t TestUnixResetAccount
 ```
 
@@ -103,3 +105,4 @@ Now, there are some tests:
 | account | username | password | user account and password |
 | category | category_name | [Category](./backend/model/category.go) | category list |
 | category-* | device_name | [Device](./backend/model/device.go) | device under target category |
+| history | category_name:device_name | [Histories](./backend/model/history.go) | device history list |

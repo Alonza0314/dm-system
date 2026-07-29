@@ -271,5 +271,60 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 		}
 	}
 
+	p.DmContext.Db().HistoryLock().Lock()
+	defer p.DmContext.Db().HistoryLock().Unlock()
+
+	key, targetHistory := p.DmContext.Db().GetHistoryKey(cate, dev), model.History{
+		User:       newDeviceUnmarshal.User,
+		LastBorrow: newDeviceUnmarshal.LastBorrow,
+		LastReturn: newDeviceUnmarshal.LastReturn,
+	}
+
+	history, err := p.DmContext.Db().Load(constant.COLL_HISTORY, key)
+	if err != nil && err.Error() != "bucket not found" {
+		p.ProcLog.Errorf("failed to load history bucket: %v", err)
+		return nil
+	}
+
+	if history == "" {
+		p.ProcLog.Debugln("history is empty, create new one")
+
+		history := make(model.Histories, 0)
+		history = append(history, targetHistory)
+
+		historyMarshal, err := json.Marshal(history)
+		if err != nil {
+			p.ProcLog.Errorf("failed to marshal history: %v", err)
+			return nil
+		}
+
+		if err := p.DmContext.Db().Save(constant.COLL_HISTORY, key, string(historyMarshal)); err != nil {
+			p.ProcLog.Errorf("failed to save marshal history to db: %v", err)
+		}
+
+		return nil
+	}
+
+	var historyUnmarshal model.Histories
+	if err := json.Unmarshal([]byte(history), &historyUnmarshal); err != nil {
+		p.ProcLog.Errorf("failed to unmarshal history get from db: %v", err)
+		return nil
+	}
+
+	historyUnmarshal = append([]model.History{targetHistory}, historyUnmarshal...)
+	if len(historyUnmarshal) > p.maxHistory {
+		historyUnmarshal = historyUnmarshal[:p.maxHistory]
+	}
+
+	historyMarshal, err := json.Marshal(historyUnmarshal)
+	if err != nil {
+		p.ProcLog.Errorf("failed to marshal back history: %v", err)
+		return nil
+	}
+
+	if err := p.DmContext.Db().Save(constant.COLL_HISTORY, key, string(historyMarshal)); err != nil {
+		p.ProcLog.Errorf("failed to save marshal history to db: %v", err)
+	}
+
 	return nil
 }

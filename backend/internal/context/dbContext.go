@@ -3,6 +3,7 @@ package context
 import (
 	"backend/internal/db"
 	"backend/logger"
+	"fmt"
 	"sync"
 )
 
@@ -18,6 +19,7 @@ type dbContext struct {
 
 	mainLock    sync.RWMutex
 	accountLock sync.RWMutex
+	historyLock sync.RWMutex
 
 	*logger.BackendLogger
 }
@@ -33,6 +35,7 @@ func newDbContext(dbContextIE *dbContextIE) (*dbContext, error) {
 
 		mainLock:    sync.RWMutex{},
 		accountLock: sync.RWMutex{},
+		historyLock: sync.RWMutex{},
 
 		BackendLogger: dbContextIE.BackendLogger,
 	}, nil
@@ -54,6 +57,14 @@ func (d *dbContext) MainLock() *sync.RWMutex {
 
 func (d *dbContext) AccountLock() *sync.RWMutex {
 	return &d.accountLock
+}
+
+func (d *dbContext) HistoryLock() *sync.RWMutex {
+	return &d.historyLock
+}
+
+func (d *dbContext) GetHistoryKey(category, device string) string {
+	return fmt.Sprintf("%s:%s", category, device)
 }
 
 func (d *dbContext) Exist(collection, key string) (bool, error) {

@@ -316,6 +316,10 @@ func (p *Processor) DeleteDevice(cate, dev string) (*model.ResponseDeleteDevice,
 		}
 	}
 
+	if err := p.DmContext.Db().Remove(constant.COLL_HISTORY, p.DmContext.Db().GetHistoryKey(cate, dev)); err != nil && err.Error() != "bucket not found"  {
+		p.ProcLog.Errorf("failed to remove device history: %v", err)
+	}
+
 	return &model.ResponseDeleteDevice{
 		Message: "Delete successful",
 	}, nil

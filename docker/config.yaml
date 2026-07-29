@@ -16,6 +16,8 @@ backend:
     enable: true
     path: "./dm.sock"
 
+  maxHistory: 100
+
   frontendFilePath: "frontend"
 
 logger:

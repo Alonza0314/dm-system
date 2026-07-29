@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { AccountApi, CategoryApi, DeviceApi, QrcodeApi, SettingApi, Configuration } from './api'
+import { AccountApi, CategoryApi, DeviceApi, HistoryApi, QrcodeApi, SettingApi, Configuration } from './api'
 import { getErrorMessage } from './utils/getErrorMessage'
 
 const apiBasePath = import.meta.env.VITE_API_BASE_URL || window.location.origin
@@ -12,6 +12,7 @@ const configuration = new Configuration({
 export const accountApi = new AccountApi(configuration)
 export const categoryApi = new CategoryApi(configuration)
 export const deviceApi = new DeviceApi(configuration)
+export const historyApi = new HistoryApi(configuration)
 export const qrcodeApi = new QrcodeApi(configuration)
 export const settingApi = new SettingApi(configuration)
 
