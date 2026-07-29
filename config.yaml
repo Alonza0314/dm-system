@@ -16,7 +16,7 @@ backend:
     enable: true
     path: "/tmp/dm.sock"
 
-  maxHistroy: 100
+  maxHistory: 100
 
   frontendFilePath: "build/frontend"
 

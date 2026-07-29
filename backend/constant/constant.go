@@ -15,6 +15,7 @@ const (
 	PWD_LOG  = "PWD"
 	SET_LOG  = "SET"
 	UNX_LOG  = "UNX"
+	HST_LOG  = "HIS"
 )
 
 // db
@@ -52,4 +53,9 @@ const (
 	UNIX_BUFFER_SIZE = 1024
 
 	UNIX_TYPE_RESET_ACCOUNT UNIX_MSG_TYPE = 1
+)
+
+// history
+const (
+	DEFAULT_MAX_HISTORY = 100
 )
