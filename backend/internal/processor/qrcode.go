@@ -306,7 +306,7 @@ func (p *Processor) Return(cate, dev string, req *model.RequestQrcodeReturn) *mo
 	}
 
 	var historyUnmarshal model.Histories
-	if err := json.Unmarshal([]byte(history), historyUnmarshal); err != nil {
+	if err := json.Unmarshal([]byte(history), &historyUnmarshal); err != nil {
 		p.ProcLog.Errorf("failed to unmarshal history get from db: %v", err)
 		return nil
 	}
