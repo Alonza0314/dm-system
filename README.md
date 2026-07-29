@@ -39,7 +39,8 @@ This is a useful device management for IT.
     │   └─/:cate/:dev(GET, DELETE)
     └─/qrcode/:cate/:dev(POST, DELETE)
     └─/setting
-        └─/account(POST)
+    │   └─/account(POST)
+    └─/history/:cate/:dev(GET)
 ```
 
 ## Install - Docker Compose
@@ -92,6 +93,7 @@ Now, there are some tests:
 ./test.sh -t TestApiCategory
 ./test.sh -t TestApiDevice
 ./test.sh -t TestApiQrcode
+./test.sh -t TestApiHistory
 ./test.sh -t TestUnixResetAccount
 ```
 

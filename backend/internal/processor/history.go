@@ -64,6 +64,11 @@ func (p *Processor) GetHistory(cate, dev string) (*model.ResponseGetHistory, *mo
 		}
 	}
 
+	if history == "" {
+		p.ProcLog.Debugf("history of device %s is empty", dev)
+		return response, nil
+	}
+
 	var historyUnmarshal model.Histories
 	if err := json.Unmarshal([]byte(history), &historyUnmarshal); err != nil {
 		p.ProcLog.Errorf("failed to unmarshal history get from db: %v", err)
